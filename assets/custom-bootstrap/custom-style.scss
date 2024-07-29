@@ -193,6 +193,50 @@ $utilities: map-merge($utilities,
     font-style: italic;
 }
 
+.gradient {
+    background: linear-gradient(152deg, rgba(60,29,168,1) 0%, rgba(157,191,194,1) 100%);
+}
 
+.green {
+    color: #1ED760 !important;
+}
+
+.bgSpoty {
+    background-color: #1ED760 !important;
+}
+
+.square {
+    width: 35px;
+    height: 35px;
+}
+
+.bgGreen {
+    background-color: #004537 !important;
+}
+
+* {
+    font-family: "Circular";
+}
+
+.display {
+    display: none;
+}
+
+#dropdown {
+    cursor: pointer;
+}
+
+.bgCenterBlack {
+    background: linear-gradient(20deg, rgba(0,0,0,1) 5%, rgb(0, 0, 0, 0) 75%);
+    /* background: linear-gradient(90deg, #000000 0%, #121212 100%); */
+}
+
+a {
+    transition-duration: 0.3s;
+    cursor: pointer;
+    &:hover {
+        color: white !important;
+    }
+}
 
 @import "scss/bootstrap.scss";

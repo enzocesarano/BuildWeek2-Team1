@@ -239,4 +239,15 @@ a {
     }
 }
 
+.card1 {
+    width: 80px !important;
+    height: 80px !important;
+    background-color: black;
+}
+
+.bgGray {
+    background-color: #2C2C2C;
+} 
+
+
 @import "scss/bootstrap.scss";

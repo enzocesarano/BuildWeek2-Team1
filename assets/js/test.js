@@ -206,7 +206,7 @@ function play(song) {
                 }
             }
 
-            
+
             function shuffle() {
                 const shuffleIcon = document.getElementById('shuffle-icon')
                 shuffleIcon.addEventListener('click', function () {
@@ -228,6 +228,12 @@ function play(song) {
                 repeatIcon.addEventListener('click', function () {
                     repeatIcon.classList.toggle('activeShuffle')
                     repeatIcon.classList.toggle('text-secondary')
+                })
+
+                audio.addEventListener('ended', function () {
+                    if (repeatIcon.classList.contains('activeShuffle')) {
+                        audio.play();      
+                    }
                 })
             }
 

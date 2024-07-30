@@ -16,7 +16,7 @@
 <body>
 
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid g-0">
             <div class="row">
 
                 <!-- SINISTRA -->
@@ -121,109 +121,138 @@
                 </div>
 
                 <!-- CENTRO -->
-                <div id="center" class="col py-4 px-3 text-light bgCenterAlbum ">
-                    <div class="row row-cols-1">
-                        <div class="col d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
-                                    <i class="fa-solid fa-chevron-left fs-5"></i>
-                                </div>
 
+                <div id="center" class="col px-0 text-light vh-100">
+                    <div class="sfondoDinamico">
+                        <div class="row row-cols-1">
+                            <div class="col d-flex justify-content-between mb-3">
+                                <div class="d-flex">
+                                    <div
+                                        class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
+                                        <i class="fa-solid fa-chevron-left fs-5"></i>
+                                    </div>
+
+                                    <div
+                                        class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-chevron-right fs-5"></i>
+                                    </div>
+                                </div>
                                 <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
-                                    <i class="fa-solid fa-chevron-right fs-5"></i>
+                                    class="d-flex text-light bg-black rounded-5 justify-content-end align-items-center">
+                                    <div class="square me-3">
+                                        <img src="assets/img/search/image-1.jpeg" class="w-100 rounded-circle" alt="">
+                                    </div>
+                                    <p class="m-0 me-3">Team 1...</p>
+                                    <i id="dropdown" class="fa-solid fa-caret-down fs-5 align-self-self pe-3"></i>
                                 </div>
                             </div>
-                            <div class="d-flex text-light bg-black rounded-5 justify-content-end align-items-center">
-                                <div class="square me-3">
-                                    <img src="assets/img/search/image-1.jpeg" class="w-100 rounded-circle" alt="">
-                                </div>
-                                <p class="m-0 me-3">Team 1...</p>
-                                <i id="dropdown" class="fa-solid fa-caret-down fs-5 align-self-self pe-3"></i>
-                            </div>
-                        </div>
 
-                        <div class="col mb-3">
-                            <div class="row justify-content-center text-light rounded-2 m-2">
-                                <div class="col-3 p-0 ">
-                                    <div class="w-100">
-                                        <img src="assets/img/search/image-12.jpg" class="album-cover-album w-100 "
-                                            alt="Album Cover">
+                            <div class="col mb-3">
+                                <div class="row justify-content-center text-light rounded-2 m-2">
+                                    <div class="col-3 p-0 ">
+                                        <div class="w-100">
+                                            <img src="assets/img/search/image-12.jpg" class="album-cover-album w-100 "
+                                                alt="Album Cover">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-9 d-flex flex-column justify-content-end">
-                                    <div>
-                                        <p class="pt-3 fs-small mb-0">ALBUM</p>
-                                    </div>
-                                    <div>
-                                        <h1 class="fs-10 fw-bold mb-0 display-1">Gioventù brucata</h1>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <div class="w-5">
-                                            <img src="assets/img/main/image-2.jpg" class="rounded-circle w-100"
-                                                alt="Img-artista">
+                                    <div class="col-9 d-flex flex-column justify-content-end">
+                                        <div>
+                                            <p class="pt-3 fs-small mb-0">ALBUM</p>
                                         </div>
                                         <div>
-                                            <p class="lead fs-6 mb-0 ms-2">Pinguini Tattici Nucleari -
-                                                <span>2017</span> - <span>12 brani,
+                                            <h1 class="fs-10 fw-bold mb-0 display-1">Gioventù brucata</h1>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="w-5">
+                                                <img src="assets/img/main/image-2.jpg" class="rounded-circle w-100"
+                                                    alt="Img-artista">
+                                            </div>
+                                            <div>
+                                                <p class="lead fs-6 mb-0 ms-2">Pinguini Tattici Nucleari -
+                                                    <span>2017</span> - <span>12 brani,
 
-                                                </span> <span class="text-white-50">53 min 20 sec.</span>
-                                            </p>
+                                                    </span> <span class="text-white-50">53 min 20 sec.</span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-                    <!--parte centrale- canzoni -->
-                    <div class="row btn-spotify-album">
-                        <div class="col d-flex align-items-center">
-                            <div class="me-4">
-                                <button type="submit" class="btn bgSpoty w-100 rounded-circle me-2">
-                                    <i class="bi bi-play-fill fs-1" class=""></i></button>
-                            </div>
-                            <div class="me-4">
-                                <i class="bi bi-suit-heart icon-spotify-album"></i>
-                            </div>
-                            <div class="me-4">
-                                <i class="bi bi-arrow-down-circle icon-spotify-album"></i>
-                            </div>
-                            <div>
-                                <p class="fs-2">...</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row px-4 pb-2 text-light my-4 fs-6 border-bottom border-light-subtle opacity-50 align-items-center">
-                        <div class="col-6 d-flex">
-                            <div class="col-1 px-0 me-2 mb-0 align-self-center">#</div>
-                            <div class="col px-0 mb-0 align-self-center">TITOLO</div>
-                        </div>
-                        <div class="col-3 px-0">
-                            <p class="text-end mb-0">RIPRODUZIONE</p>
-                        </div>
-                        <div class="col-3 px-0">
-                            <p class="mb-0 text-end"><i class="bi bi-clock"></i></p>
-                        </div>
-                    </div>
+                        <!--parte centrale- canzoni -->
 
-                    <!--parte centrale dinamica-->
-                    <div class="row px-4 text-light my-4 fs-6 align-items-center">
-                        <div class="col-6 d-flex">
-                            <div class="col-1 px-0 me-2 mb-0 align-self-center">1</div>
-                            <div class="col px-0 mb-0">
-                                <h4 class="mb-1">pippo</h4>
-                                <p>culo</p>
+                        <div class="container-fluid bgCenterAlbum pt-4 px-4 m-0">
+                            <div class="row">
+                                <div class="col d-flex align-items-center">
+                                    <div class="me-4 btn-round">
+                                        <button type="submit" class="btn bgSpoty w-100 h-100 rounded-circle me-2">
+                                            <i class="bi bi-play-fill fs-2 text-center mb-1"></i></button>
+                                    </div>
+                                    <div class="me-4">
+                                        <i class="bi bi-suit-heart icon-spotify-album"></i>
+                                    </div>
+                                    <div class="me-4">
+                                        <i class="bi bi-arrow-down-circle icon-spotify-album"></i>
+                                    </div>
+                                    <div>
+                                        <p class="fs-3">...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="row px-4 pb-2 text-light my-4 fs-6 border-bottom border-light-subtle opacity-50 align-items-center">
+                                <div class="col-6 d-flex">
+                                    <div class="col-1 px-0 me-2 mb-0 align-self-center">#</div>
+                                    <div class="col px-0 mb-0 align-self-center">TITOLO</div>
+                                </div>
+                                <div class="col-3 px-0">
+                                    <p class="text-end mb-0">RIPRODUZIONE</p>
+                                </div>
+                                <div class="col-3 px-0">
+                                    <p class="mb-0 text-end"><i class="bi bi-clock"></i></p>
+                                </div>
+                            </div>
+
+                            <!--parte centrale dinamica-->
+                            <div class="row px-4 text-light my-4 fs-6 align-items-center">
+                                <div class="col-6 d-flex">
+                                    <div class="col-1 px-0 me-2 mb-0 align-self-center">1</div>
+                                    <div class="col px-0 mb-0">
+                                        <h4 class="mb-1">pippo</h4>
+                                        <p>culo</p>
+                                    </div>
+                                </div>
+                                <div class="col-3 px-0 text-end">1654685651</div>
+                                <div class="col-3 px-0 text-end">1.1</div>
+                            </div>
+                            <div class="row px-4 text-light my-4 fs-6 align-items-center">
+                                <div class="col-6 d-flex">
+                                    <div class="col-1 px-0 me-2 mb-0 align-self-center">1</div>
+                                    <div class="col px-0 mb-0">
+                                        <h4 class="mb-1">pippo</h4>
+                                        <p>culo</p>
+                                    </div>
+                                </div>
+                                <div class="col-3 px-0 text-end">1654685651</div>
+                                <div class="col-3 px-0 text-end">1.1</div>
+                            </div>
+                            <div class="row px-4 text-light my-4 fs-6 align-items-center">
+                                <div class="col-6 d-flex">
+                                    <div class="col-1 px-0 me-2 mb-0 align-self-center">1</div>
+                                    <div class="col px-0 mb-0">
+                                        <h4 class="mb-1">pippo</h4>
+                                        <p>culo</p>
+                                    </div>
+                                </div>
+                                <div class="col-3 px-0 text-end">1654685651</div>
+                                <div class="col-3 px-0 text-end">1.1</div>
                             </div>
                         </div>
-                        <div class="col-3 px-0 text-end">1654685651</div>
-                        <div class="col-3 px-0 text-end">1.1</div>
                     </div>
                 </div>
-
-
 
 
                 <!-- Album Section -->
@@ -282,20 +311,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- PLAYER -->
-        <section>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col"></div>
+            </div>
+
+            <!-- PLAYER -->
+            <section>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                    </div>
                 </div>
-            </div>
-
-        </section>
+            </section>
+        </div>
     </main>
 
 

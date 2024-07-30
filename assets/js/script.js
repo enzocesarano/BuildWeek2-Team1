@@ -106,3 +106,42 @@ document.getElementById('forward-icon').addEventListener('click', function() {
         requestAnimationFrame(updateProgressBar);
     }
 });
+
+
+// VOLUME
+
+document.addEventListener('DOMContentLoaded', function () {
+    const volumeBarContainer = document.getElementById('volume-bar-container');
+    const volumeBar = document.getElementById('volume-bar');
+    const audioElement = document.getElementById('audio-player'); 
+
+    const updateVolume = (e) => {
+        const rect = volumeBarContainer.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const newVolume = Math.min(Math.max(offsetX / rect.width, 0), 1); 
+        volumeBar.style.width = `${newVolume * 100}%`;
+
+        if (audioElement) {
+            audioElement.volume = newVolume;
+        }
+    };
+
+    volumeBarContainer.addEventListener('click', updateVolume);
+
+    let isDragging = false;
+
+    volumeBarContainer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateVolume(e);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            updateVolume(e);
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+});

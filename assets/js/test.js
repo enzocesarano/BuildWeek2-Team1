@@ -21,6 +21,8 @@ function fetchArtist() {
             } else {
                 display(randomArtist);
                 play(randomArtist);
+                playNext(randomArtist)
+
             }
         })
         .catch((error) => {
@@ -54,13 +56,18 @@ function display(art) {
 
 const audio = document.createElement('audio');
 
+function playNext(song) {
+    audio.src = song.preview;
+    audio.play();
+}
+
+
 function play(song) {
     const btnPlay = document.querySelectorAll('.btnPlay');
     btnPlay.forEach(element => {
         element.addEventListener('click', function (e) {
             e.preventDefault();
-            audio.src = song.preview;
-            audio.play();
+            playNext(song)
             sectionPlayer.innerHTML = `<div class="container-fluid bg-dark border border-0 border-top border-1 border-light p-0">
             <div class="row text-center">
                 <div class="col-2 text-start">
@@ -79,7 +86,7 @@ function play(song) {
                                 <i id="play1" class="bi bi-pause-circle-fill text-secondary fs-2"></i>
                             </div>
                             <div class="m-2">
-                                <i class="bi bi-skip-forward-fill text-secondary fs-5"></i>
+                                <i id="next-icon" class="bi bi-skip-forward-fill text-secondary fs-5"></i>
                             </div>
                             <div class="m-2 mx-3">
                                 <i id="repeat-icon" class="bi bi-repeat text-secondary fs-5"></i>
@@ -112,8 +119,10 @@ function play(song) {
                         <div class="m-2">
                             <i class="bi bi-volume-off text-light fs-4"></i>
                         </div>
-                        <div class="m-2">
-                            /* Barra volume */
+                          <div class="m-2" style="flex-grow: 1;">
+                            <div id="volume-bar-container" class="progress" style="height: 5px; background-color: #444; cursor: pointer;">
+                                <div id="volume-bar" class="progress-bar bg-light" style="width: 50%;"></div>
+                            </div>
                         </div>
                         <div class="m-2">
                             <i class="bi bi-arrows-angle-expand text-light fs-"></i>
@@ -201,10 +210,38 @@ function play(song) {
                 const shuffleIcon = document.getElementById('shuffle-icon')
                 shuffleIcon.addEventListener('click', function () {
                     shuffleIcon.classList.toggle('activeShuffle')
+                    audio.addEventListener('ended', function () {
+                        if (shuffleIcon.classList.contains('activeShuffle')) {
+                            // Se la modalità shuffle è attivata, chiama la funzione fetchArtist
+                            fetchArtist();
+                        }
+                    })
+                    shuffleIcon.classList.toggle('text-secondary')
                 })
             }
 
             shuffle()
+
+            function repeat() {
+                const repeatIcon = document.getElementById('repeat-icon')
+                repeatIcon.addEventListener('click', function () {
+                    repeatIcon.classList.toggle('activeShuffle')
+                    repeatIcon.classList.toggle('text-secondary')
+                })
+            }
+
+            repeat()
+
+
+            function nextSong() {
+                const nextIcon = document.getElementById('next-icon')
+                nextIcon.addEventListener('click', function () {
+                    fetchArtist()
+                    playNext(song)
+                })
+            }
+
+            nextSong()
 
 
             audio.addEventListener('timeupdate', updateProgressBar);

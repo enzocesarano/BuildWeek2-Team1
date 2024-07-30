@@ -248,6 +248,14 @@ a {
 .bgGray {
     background-color: #2C2C2C;
 } 
-
+.bgCenterAlbum {
+    background: linear-gradient(180deg, rgba(220,190,79,1) 1%, rgba(18,18,18,1) 100%);
+}
+.album-cover-album{
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.btn-spotify-album{
+    width: 100px;
+}
 
 @import "scss/bootstrap.scss";

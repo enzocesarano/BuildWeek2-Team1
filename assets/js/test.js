@@ -207,20 +207,17 @@ function play(song) {
             }
 
             
-            
-
             function shuffle() {
                 const shuffleIcon = document.getElementById('shuffle-icon')
                 shuffleIcon.addEventListener('click', function () {
                     shuffleIcon.classList.toggle('activeShuffle')
-                    audio.addEventListener('ended', function () {
-                        if (shuffleIcon.classList.contains('activeShuffle')) {
-                            fetchArtist();
-                        } else {
-                            audio.removeEventListener('ended');
-                        }
-                    })
                     shuffleIcon.classList.toggle('text-secondary')
+                })
+
+                audio.addEventListener('ended', function () {
+                    if (shuffleIcon.classList.contains('activeShuffle')) {
+                        fetchArtist();      
+                    }
                 })
             }
 
@@ -252,4 +249,3 @@ function play(song) {
         });
     });
 }
-

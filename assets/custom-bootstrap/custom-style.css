@@ -132,6 +132,9 @@ a:hover {
 .btn-spotify-album {
   width: 100px;
 }
+.icon-spotify-album{
+  font-size: 2.5em
+}
 
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)

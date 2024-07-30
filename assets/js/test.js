@@ -206,14 +206,18 @@ function play(song) {
                 }
             }
 
+            
+            
+
             function shuffle() {
                 const shuffleIcon = document.getElementById('shuffle-icon')
                 shuffleIcon.addEventListener('click', function () {
                     shuffleIcon.classList.toggle('activeShuffle')
                     audio.addEventListener('ended', function () {
                         if (shuffleIcon.classList.contains('activeShuffle')) {
-                            // Se la modalità shuffle è attivata, chiama la funzione fetchArtist
                             fetchArtist();
+                        } else {
+                            audio.removeEventListener('ended');
                         }
                     })
                     shuffleIcon.classList.toggle('text-secondary')

@@ -124,19 +124,22 @@
                 <!-- CENTRO -->
                 <div id="center" class="col py-4 px-5 bg-dark text-light">
                     <div class="row row-cols-1">
-                        <div class="col d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
-                                    <i class="fa-solid fa-chevron-left fs-5"></i>
+                        <div class="col d-flex justify-content-between mb-3   ">
+                            <div class="d-flex  ">
+                                <div class="d-none d-lg-flex">
+                                    <div
+                                        class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
+                                        <i class="fa-solid fa-chevron-left fs-5"></i>
+                                    </div>
                                 </div>
 
                                 <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
+                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center d-none d-lg-flex">
                                     <i class="fa-solid fa-chevron-right fs-5"></i>
                                 </div>
                             </div>
-                            <div class="d-flex text-light bg-black rounded-5 justify-content-end align-items-center">
+                            <div
+                                class="d-flex text-light bg-black rounded-5 justify-content-end align-items-center d-none d-lg-flex">
                                 <div class="square me-3">
                                     <img src="assets/img/search/image-1.jpeg" class="w-100 rounded-circle" alt="">
                                 </div>
@@ -151,15 +154,18 @@
 
                         <div class="col">
                             <div class="row row-cols-1 mb-3">
-                                <div class="col p-0">
-                                    <h2 class="fs-2 fw-bold">Buonasera
-
-                                    </h2>
+                                <div class="col p-0 d-flex justify-content-between align-items-start">
+                                    <h2 class="fs-2 fw-bold goodnight-mobile mb-3">Buonasera</h2>
+                                    <div class="icon-container d-flex  d-sm-block d-md-none ">
+                                        <i class="fa-solid fa-bell">&nbsp;</i>
+                                        <i class="fa fa-gear">&nbsp;</i>
+                                        <i class="fa fa-history">&nbsp;</i>
+                                    </div>
                                 </div>
 
                                 <div class="col">
                                     <div id="artistContainer" class="row row-cols-12 row-cols-md-3">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +174,7 @@
                             <p class="fs-5 fw-bold">Altro di ciò che ti piace</p>
                         </div>
                         <div class="col">
-                            <div id="albumSection" class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+                            <div id="albumSection" class="row row-cols-1 row-cols-md-3 row-cols-lg-6 g-3 ">
 
                             </div>
                         </div>
@@ -251,6 +257,20 @@
         </section>
     </main>
 
+    <!-- Navbar mobile -->
+    <nav class="navbar-mobile d-sm-block d-md-none  ">
+        <ul class="nav justify-content-around w-100">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-home"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-search"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-book"></i></a>
+            </li>
+        </ul>
+    </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

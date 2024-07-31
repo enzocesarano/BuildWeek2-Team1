@@ -3,7 +3,7 @@ const destra = document.getElementById('destra');
 const center = document.getElementById('center');
 
 dropdown.addEventListener('click', function () {
-    destra.classList.toggle('d-lg-none');
+    destra.classList.toggle('display');
 });
 
 const annunci = document.getElementById('annunci');
@@ -414,8 +414,8 @@ function fetchAlbum() {
             })
             .then((album) => {
                 const albumSection = document.getElementById('albumSection')
-                albumSection.innerHTML += `<div class="col p-0 mb-10 hover2">
-                                    <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary">
+                albumSection.innerHTML += `<div class="col p-0 hover2 mb-10 mb-sm-2 mb-md-3">
+                                    <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary ">
                                         <div class="w-100 position-relative">
                                             <img src="${album.cover_big}" class="card-img-top w-100"
                                                 alt="${album.title}">
@@ -464,8 +464,8 @@ function fetchArtistDetails() {
                 artistContainer.innerHTML += `<div class="col p-0">
                                             <div class="d-flex align-items-center bgGray rounded-2 me-3 mb-2">
                                                 <div class="d-flex flex-wrap card1">
-                                                    <div class="w-100">
-                                                        <img src="${artist.picture_big}" class="w-100 rounded-circle" alt="">
+                                                    <div class="w-100 img-container">
+                                                        <img src="${artist.picture_big}" class="w-100 rounded-start" alt="">
                                                     </div>
                                                 </div>
                                                 <div>

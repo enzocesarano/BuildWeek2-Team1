@@ -389,7 +389,7 @@ function fetchAlbum() {
             .then((album) => {
                 console.log(album);
                 const albumSection = document.getElementById('albumSection')
-                albumSection.innerHTML += `<div class="col p-0 hover2">
+                albumSection.innerHTML += `<div class="col p-0 hover2 mb-10">
                                     <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary">
                                         <div class="w-100 position-relative">
                                             <img src="${album.cover_big}" class="card-img-top w-100"
@@ -421,3 +421,39 @@ fetchAlbum()
 
 
 
+const randomArtistDetails = [48975581, 64816, 564, 27, 8706544, 542]
+
+function fetchArtistDetails() {
+    randomArtistDetails.forEach(element => {
+        fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/${element}`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('error');
+                }
+            })
+            .then((artist) => {
+                console.log(artist);
+                const artistContainer = document.getElementById('artistContainer')
+                artistContainer.innerHTML += `<div class="col p-0">
+                                            <div class="d-flex align-items-center bgGray rounded-2 me-3 mb-2">
+                                                <div class="d-flex flex-wrap card1">
+                                                    <div class="w-100">
+                                                        <img src="${artist.picture_big}" class="w-100" alt="">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p class="ms-3 fs-small">${artist.name}</p>
+                                                </div>
+                                            </div>
+                                        </div>`
+
+            })
+            .catch((error) => {
+                console.log('errore', error);
+            });
+    })
+}
+
+fetchArtistDetails()

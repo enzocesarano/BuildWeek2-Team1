@@ -122,30 +122,24 @@ a:hover {
 }
 
 .bgCenterAlbum {
-  background: linear-gradient(180deg, rgba(233,233,233,0.8183648459383753) 0%, rgba(18,18,18,1) 100%);
+  background: linear-gradient(180deg, rgba(233, 233, 233, 0.8183648459) 0%, rgb(18, 18, 18) 100%);
 }
 
 .album-cover-album {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.btn-round{
-  width:50px ;
+.btn-round {
+  width: 50px;
   height: 50px;
-
-}
-.btn-round button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icon-spotify-album{
-  font-size: 1.5em
 }
 
 .sfondoDinamico {
-  background-color: #dbbd4e
+  background-color: #dbbd4e;
+}
+
+.icon-spotify-album {
+  font-size: 1.5em;
 }
 
 .hover i {
@@ -162,6 +156,41 @@ a:hover {
 
 .activeShuffle {
   color: #1ED760 !important;
+}
+
+.bg-img-dinamica {
+  background-image: url("../img/main/image-18.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-background {
+  color: blue;
+}
+
+.icon-foreground {
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.volumeControll div i {
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.volumeControll div i:hover {
+  color: white !important;
 }
 
 /*!

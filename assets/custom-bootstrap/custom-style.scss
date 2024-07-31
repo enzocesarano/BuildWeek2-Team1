@@ -286,5 +286,38 @@ box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 .activeShuffle {
     color: #1ED760 !important;
 }
+.bg-img-dinamica{
+    background-image: url('../img/main/image-18.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.icon-container {
+    position: relative;
+    display: inline-block;
+}
+.icon-background {
+    color: blue;
+}
+.icon-foreground {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.nowrap {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.volumeControll div i {
+    cursor: pointer;
+    transition-duration: 0.3s;
+    &:hover {
+        color: white !important;
+    }
+}
+
+
 
 @import "scss/bootstrap.scss";

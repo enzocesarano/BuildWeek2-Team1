@@ -8,6 +8,10 @@ dropdown.addEventListener('click', function () {
 
 const annunci = document.getElementById('annunci');
 const sectionPlayer = document.getElementById('sectionPlayer');
+const sectionAlbum = document.getElementById('sectionAlbum')
+const sectionVolume = document.getElementById('sectionVolume')
+const sectionControl = document.getElementById('sectionControl')
+
 
 function fetchArtist() {
     const random = [Math.floor(Math.random() * 2000)];
@@ -28,9 +32,8 @@ function fetchArtist() {
                 fetchArtist();
             } else {
                 display(randomArtist);
-                play(randomArtist);
                 playNext(randomArtist)
-
+                play(randomArtist);
             }
         })
         .catch((error) => {
@@ -72,8 +75,8 @@ const audio = document.createElement('audio');
 
 function playNext(song) {
     audio.src = song.preview;
-    audio.play();
-    barControll(song)
+    audio.play()
+    barControllAlbum(song)
 }
 
 
@@ -83,15 +86,16 @@ function play(song) {
         element.addEventListener('click', function (e) {
             e.preventDefault();
             playNext(song)
+            barControll(song)
+            sectionControl.classList.remove('d-none')
         });
     });
 }
 
 
-function barControll(song) {
-    sectionPlayer.innerHTML = `<div class="container-fluid bg-dark border border-0 border-top border-1 border-light p-0">
-            <div class="row text-center p-2 align-items-center">
-                <div class="col-2 d-flex text-secondary align-items-center">
+function barControllAlbum(song) {
+    sectionAlbum.innerHTML = `
+                <div class="col d-flex text-secondary align-items-center">
                     <div class="row align-items-center">
                         <div class="col w-25 d-flex align-items-center">
                             <img src="${song.album.cover}" class="w-100" alt="icona">
@@ -104,10 +108,12 @@ function barControll(song) {
                             <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
                         </div>
                     </div> 
-                </div>
-                
-                <div class="col-8 text-center">
-                    <div class="row">
+                </div>`
+}
+
+
+function barControll(song) {
+    sectionPlayer.innerHTML = `
                         <div class="col-12 d-flex justify-content-center align-items-center hover">
                             <div class="m-2 mx-3">
                                 <i id="shuffle-icon" class="bi bi-shuffle text-secondary fs-5"></i>
@@ -129,41 +135,43 @@ function barControll(song) {
                             <p class="fs-small mb-0 text-light" id="minutesCurrent">00</p>
                             <p class="fs-small mb-0 text-light">:</p>
                             <p class="fs-small mb-0 text-light" id="secondsCurrent">00</p>
-                            <div id="progress-bar-container" class="progress m-2 position-relative w-50" style="height: 5px; background-color: #444;">
-                                <div id="progress-bar" class="progress-bar bg-light" role="progressbar" style="width: 0%; transition: none;"></div>
+                            <div id="progress-bar-container" class="progress m-2 position-relative w-50"
+                                style="height: 5px; background-color: #444;">
+                                <div id="progress-bar" class="progress-bar bg-light" role="progressbar" style="width: 0%; transition: none;">
+                                </div>
                             </div>
                             <p class="fs-small mb-0 text-light" id="minutesDuration">00</p>
                             <p class="fs-small mb-0 text-light">:</p>
                             <p class="fs-small mb-0 text-light" id="secondsDuration">00</p>
-                        </div>
-                    </div>
+                         </div>`;
+
+    sectionVolume.innerHTML = `
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="m-2">
+                <i class="bi bi-mic-fill text-secondary fs-6"></i>
+            </div>
+            <div class="m-2">
+                <i class="bi bi-archive text-secondary fs-6"></i>
+            </div>
+            <div class="m-2">
+                <i class="bi bi-music-player text-secondary fs-6"></i>
+            </div>
+            <div class="m-2">
+                <i id="btnVolume" class="bi bi-volume-up text-secondary fs-4"></i>
+            </div>
+            <div class="m-2" style="flex-grow: 1;">
+                <div id="volume-bar-container" class="progress" style="height: 5px; cursor: pointer;">
+                    <input type="range" id="volume-bar" class="volume-range" min="0" max="100" value="50">
                 </div>
-                <div class="col-2 volumeControll">
-                    <div class="col-12 d-flex justify-content-center align-items-center">
-                        <div class="m-2">
-                            <i class="bi bi-mic-fill text-secondary fs-6"></i>
-                        </div>
-                        <div class="m-2">
-                            <i class="bi bi-archive text-secondary fs-6"></i>
-                        </div>
-                        <div class="m-2">
-                            <i class="bi bi-music-player text-secondary fs-6"></i>
-                        </div>
-                        <div class="m-2">
-                            <i id="btnVolume" class="bi bi-volume-up text-secondary fs-4"></i>
-                        </div>
-                          <div class="m-2" style="flex-grow: 1;">
-                            <div id="volume-bar-container" class="progress" style="height: 5px; cursor: pointer;">
-                                <input type="range" id="volume-bar" class="volume-range" min="0" max="100" value="50">
-                            </div>
-                        </div>
-                        <div class="m-2">
-                            <i class="bi bi-arrows-angle-expand text-light fs-"></i>
-                        </div>
-                    </div>
-                </div>
-              </div>
-            </div>`;
+            </div>
+            <div class="m-2">
+                <i class="bi bi-arrows-angle-expand text-light fs-"></i>
+            </div>
+        </div>
+    </div>`;
+
+
 
     const play1 = document.getElementById('play1');
 
@@ -287,7 +295,7 @@ function barControll(song) {
                 play1.classList.add('bi-play-circle-fill');
                 audio.pause();
             }
-            barControll(song)
+            barControllAlbum(song)
         })
     }
 

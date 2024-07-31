@@ -9,6 +9,7 @@ function searchAlbum(name) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${name}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             if (data.data && data.data.length > 0) {
                 const albumId = data.data[0].album.id;
                 fetchAlbumDetails(albumId);
@@ -23,6 +24,7 @@ function fetchAlbumDetails(albumId) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}`)
         .then(response => response.json())
         .then(album => {
+            console.log(album)
             displayAlbumDetails(album);
         })
         .catch(error => console.error('Error:', error));
@@ -113,19 +115,23 @@ function displayAlbumDetails(album) {
                     </div>
                 </div>
 
-                ${album.tracks.data.map((track, index) => `
-                    <div class="row px-4 text-light my-4 fs-6 align-items-center">
-                        <div class="col-6 d-flex">
-                            <div class="col-1 px-0 me-2 mb-0 align-self-center">${index + 1}</div>
-                            <div class="col px-0 mb-0">
-                                <h4 class="mb-1">${track.title}</h4>
-                                <p>${track.artist.name}</p>
+                ${album.tracks && album.tracks.data.map((track, index) => {
+                    const trackDurationMinutes = Math.floor(track.duration / 60);
+                    const trackDurationSeconds = track.duration % 60;
+                    return `
+                        <div class="row px-4 text-light my-4 fs-6 align-items-center">
+                            <div class="col-6 d-flex">
+                                <div class="col-1 px-0 me-2 mb-0 align-self-center">${index + 1}</div>
+                                <div class="col px-0 mb-0">
+                                    <h4 class="mb-1">${track.title}</h4>
+                                    <p>${track.artist.name}</p>
+                                </div>
                             </div>
+                            <div class="col-3 px-0 text-end">${track.rank}</div>
+                            <div class="col-3 px-0 text-end">${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}</div>
                         </div>
-                        <div class="col-3 px-0 text-end">${track.rank}</div>
-                        <div class="col-3 px-0 text-end">${Math.floor(track.duration / 60)}:${track.duration % 60 < 10 ? '0' : ''}${track.duration % 60}</div>
-                    </div>
-                `).join('')}
+                    `;
+                }).join('')}
             </div>
         </div>
     `;

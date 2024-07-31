@@ -1,15 +1,26 @@
 document.getElementById('search-button').addEventListener('click', function() {
+    performSearch();
+});
+
+document.getElementById('album-search').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        performSearch();
+    }
+});
+
+function performSearch() {
     const albumName = document.getElementById('album-search').value;
     if (albumName) {
         searchAlbum(albumName);
+        document.getElementById('album-search').value = '';
     }
-});
+}
 
 function searchAlbum(name) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${name}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            console.log(data);
             if (data.data && data.data.length > 0) {
                 const albumId = data.data[0].album.id;
                 fetchAlbumDetails(albumId);
@@ -24,7 +35,7 @@ function fetchAlbumDetails(albumId) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}`)
         .then(response => response.json())
         .then(album => {
-            console.log(album)
+            console.log(album);
             displayAlbumDetails(album);
         })
         .catch(error => console.error('Error:', error));

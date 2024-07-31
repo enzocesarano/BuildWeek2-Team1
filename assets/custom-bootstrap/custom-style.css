@@ -91,7 +91,7 @@
 }
 
 .display {
-  display: none;
+  display: none !important;
 }
 
 #dropdown {
@@ -109,12 +109,6 @@ a {
 }
 a:hover {
   color: white !important;
-}
-
-.card1 {
-  width: 80px !important;
-  height: 80px !important;
-  background-color: black;
 }
 
 .bgGray {
@@ -192,6 +186,7 @@ a:hover {
 .volumeControll div i:hover {
   color: white !important;
 }
+
 #search-container {
   position: relative;
   display: inline-block;
@@ -202,15 +197,14 @@ a:hover {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  color: white
+  color: white;
 }
-
 
 #search-container:hover #album-search {
   opacity: 1;
   visibility: visible;
   background-color: black;
-  color: white
+  color: white;
 }
 
 .hover2 {
@@ -218,7 +212,7 @@ a:hover {
   transition-duration: 0.2s;
 }
 .hover2 :hover {
-  background-color: black !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 .hover2 :hover #playAlbum {
   opacity: 1;
@@ -234,6 +228,87 @@ a:hover {
   background-color: transparent !important;
 }
 
+.card1 {
+  width: 80px !important;
+  height: 80px !important;
+  overflow: hidden;
+}
+
+.img-container {
+  width: 80px;
+  /* height: 80px;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.navbar-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Background trasparente */
+  z-index: 9999;
+  /* Z-index maggiore del resto */
+}
+
+.navbar-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Background trasparente */
+  z-index: 9999;
+  /* Z-index maggiore del resto */
+}
+
+.navbar-mobile .nav-link {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.navbar-mobile .nav-link:hover {
+  color: #1ED760;
+  /* Colore hover per le icone */
+}
+
+/*MOBILE*/
+@media (max-width: 576px) {
+  .bgGray {
+    background-color: transparent !important;
+    /* Usa !important per forzare la sovrascrittura */
+  }
+  .icon-container {
+    display: flex;
+    gap: 25px;
+    /* Spazio tra le icone */
+  }
+  .icon-container i {
+    font-size: 1.5em;
+    /* Dimensione delle icone */
+    color: #fff;
+    /* Colore delle icone */
+  }
+  .goodnight-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+  }
+  #albumSection .col {
+    flex: 0 0 50%;
+    /* Ridimensiona gli album al 50% della larghezza del contenitore */
+    max-width: 50%;
+  }
+}
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors

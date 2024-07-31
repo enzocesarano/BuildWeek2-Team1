@@ -1,21 +1,60 @@
-const dropdown = document.getElementById('dropdown')
-const destra = document.getElementById('destra')
-const center = document.getElementById('center')
+const dropdown = document.getElementById('dropdown');
+const destra = document.getElementById('destra');
+const center = document.getElementById('center');
 
 dropdown.addEventListener('click', function () {
-    destra.classList.toggle('display')
-})
+    destra.classList.toggle('display');
+});
 
 const annunci = document.getElementById('annunci');
 const sectionPlayer = document.getElementById('sectionPlayer');
-const sectionAlbum = document.getElementById('sectionAlbum')
-const sectionVolume = document.getElementById('sectionVolume')
-const sectionControl = document.getElementById('sectionControl')
+const sectionAlbum = document.getElementById('sectionAlbum');
+const sectionVolume = document.getElementById('sectionVolume');
+const sectionControl = document.getElementById('sectionControl');
 
+function setBackgroundColor(art) {
+    if (!art || !art.album || !art.album.cover_big) {
+        console.error('Album cover not found');
+        return;
+    }
+
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = art.album.cover_big;
+
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        let r = 0, g = 0, b = 0;
+        let count = 0;
+
+        for (let i = 0; i < data.length; i += 4) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+        }
+
+        const avgR = Math.floor(r / count);
+        const avgG = Math.floor(g / count);
+        const avgB = Math.floor(b / count);
+        const dominantColor = `rgb(${avgR}, ${avgG}, ${avgB})`;
+
+        annunci.style.backgroundColor = dominantColor;
+    };
+
+    img.onerror = function() {
+        console.error('Failed to load image');
+    };
+}
 
 function fetchArtist() {
     const random = [Math.floor(Math.random() * 2000)];
-    console.log(random);
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/${random}/top?limit=50`)
         .then((response) => {
             if (response.ok) {
@@ -32,7 +71,7 @@ function fetchArtist() {
                 fetchArtist();
             } else {
                 display(randomArtist);
-                playNext(randomArtist)
+                playNext(randomArtist);
                 play(randomArtist);
             }
         })
@@ -69,25 +108,26 @@ function display(art) {
             
                             </div>
                         </div>`;
+    
+    setBackgroundColor(art);
 }
 
 const audio = document.createElement('audio');
 
 function playNext(song) {
     audio.src = song.preview;
-    audio.play()
-    barControllAlbum(song)
+    audio.play();
+    barControllAlbum(song);
 }
-
 
 function play(song) {
     const btnPlay = document.querySelectorAll('.btnPlay');
     btnPlay.forEach(element => {
         element.addEventListener('click', function (e) {
             e.preventDefault();
-            playNext(song)
-            barControll(song)
-            sectionControl.classList.remove('d-none')
+            playNext(song);
+            barControll(song);
+            sectionControl.classList.remove('d-none');
         });
     });
 }

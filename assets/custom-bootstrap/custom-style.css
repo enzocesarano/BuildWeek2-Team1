@@ -192,6 +192,47 @@ a:hover {
 .volumeControll div i:hover {
   color: white !important;
 }
+#search-container {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+}
+
+#album-search {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  color: white
+}
+
+
+#search-container:hover #album-search {
+  opacity: 1;
+  visibility: visible;
+  background-color: black;
+  color: white
+}
+
+.hover2 {
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+.hover2 :hover {
+  background-color: black !important;
+}
+.hover2 :hover #playAlbum {
+  opacity: 1;
+  transform: translate(0%, -20%);
+}
+
+#playAlbum {
+  opacity: 0;
+  transition-duration: 0.3s;
+}
+#playAlbum:hover {
+  color: #1ED760 !important;
+  background-color: transparent !important;
+}
 
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)

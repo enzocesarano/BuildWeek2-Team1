@@ -434,7 +434,7 @@ function fetchAlbum() {
                                             <p class="card-text fs-small">${album.artist.name}</p>
                                         </div>
                                     </div>
-                                </div>`;
+
 
                 const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
 
@@ -492,13 +492,16 @@ function fetchArtistDetails() {
             })
             .then((artist) => {
                 const artistData = artist.data[0];
+
+                console.log(artistData.artist.id); // Ottieni i dati dell'artista
+
                 console.log(artistData)
                 const artistData1 = JSON.stringify(artistData);
                 const artistContainer = document.getElementById('artistContainer');
                 artistContainer.innerHTML += `<div class="col p-0 mb-4">
                     <div class="card p-3 bg-dark border-0 text-secondary hover2">
                         <div class="position-relative">
-                            <img src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle"
+                            <img id="${artistData.artist.id}" src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle click"
                                  alt="${artistData.contributors[0].name}">
                             <div>
                                 <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" data-artist='${artistData1.replace(/'/g, "&apos;")}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -530,6 +533,17 @@ function fetchArtistDetails() {
                     })
 
                 });
+
+
+                const click = document.querySelectorAll('.click')
+                click.forEach(element => {
+                    element.addEventListener('click', function() {
+                        const artistId = element.id;
+                        location.assign(`./artist.html?artistId=${artistId}`)
+                    })  
+                })
+
+
             })
             .catch((error) => {
                 console.log('errore', error);

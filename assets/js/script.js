@@ -478,7 +478,7 @@ fetchAlbum();
 
 
 
-const randomArtistDetails = [48975581, 27, 542, 8706544, 1247, 547];
+const randomArtistDetails = [48975581, 27, 542, 8706544, 1247, 533];
 
 function fetchArtistDetails() {
     randomArtistDetails.forEach(element => {

@@ -45,7 +45,11 @@ function setBackgroundColor(art) {
     };
 }
 
+
+const albumDataArray = []
 const audio = document.createElement('audio');
+
+let currentIndex;
 
 function fetchArtistDetails(artistId) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/${artistId}/top?limit=50`)
@@ -90,7 +94,7 @@ function fetchArtistDetails(artistId) {
                                             <span class=" icon-container me-2">
                                                 <i class="bi bi-patch-check-fill fs-3 icon-background"></i>
                                                 <i class="bi bi-patch-check fs-3 icon-foreground"></i>
-                                            </span>Artist Verificato
+                                            </span>Artista Verificato
                                         </p>
                                     </div>
                                     <div>
@@ -154,9 +158,15 @@ function fetchArtistDetails(artistId) {
 
             setBackgroundColor(artist.data[0])
 
+
+
             artist.data.map((element, index) => {
                 if (index < 10) {
                     const albumData = JSON.stringify(artist.data[index])
+
+                    albumDataArray.push(JSON.parse(albumData))
+                    console.log(albumDataArray)
+
                     const trackDurationMinutes = Math.floor(element.duration / 60);
                     const trackDurationSeconds = element.duration % 60;
                     containerArtist.innerHTML += `
@@ -177,25 +187,25 @@ function fetchArtistDetails(artistId) {
                                             </div>`;
 
                 }
-        })
-                
+
+            })
+
 
             const newPlayAlbum = document.querySelectorAll(`.btnPlay`);
 
-        newPlayAlbum.forEach((element) => {
-        const artistData1 = JSON.parse(element.getAttribute('data-artist'));
-        console.log(artistData1)
-        element.addEventListener('click', function () {
-            audio.src = element.getAttribute('data-preview');
-            audio.play();
-            sectionControl.classList.remove('d-none');
-            barControl(artistData1);
-            barControlAlbum1(artistData1);
-        });
-    });
+            newPlayAlbum.forEach((element) => {
+                const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+                element.addEventListener('click', function () {
+                    audio.src = element.getAttribute('data-preview');
+                    audio.play();
+                    sectionControl.classList.remove('d-none');
+                    barControl(artistData1);
+                    barControlAlbum1(artistData1);
+                });
+            });
 
-    function barControlAlbum1(data) {
-        sectionAlbum.innerHTML = `
+            function barControlAlbum1(data) {
+                sectionAlbum.innerHTML = `
                                 <div class="col d-flex text-secondary align-items-center">
                                     <div class="row align-items-center">
                                         <div class="col w-25 d-none d-md-flex align-items-center">
@@ -210,11 +220,12 @@ function fetchArtistDetails(artistId) {
                                         </div>
                                     </div> 
                                 </div>`
-    }
-})
-        .catch ((error) => {
-    console.log('errore', error);
-});
+            }
+
+        })
+        .catch((error) => {
+            console.log('errore', error);
+        });
 
 
 }
@@ -392,14 +403,41 @@ function barControl(song) {
     }
 
     function shuffle() {
-        const shuffleIcon = document.getElementById('shuffle-icon')
+        const shuffleIcon = document.getElementById('shuffle-icon');
+    
         shuffleIcon.addEventListener('click', function () {
-            shuffleIcon.classList.toggle('activeShuffle')
-            shuffleIcon.classList.toggle('text-secondary')
-        })
-    }
+            shuffleIcon.classList.toggle('activeShuffle');
+            shuffleIcon.classList.toggle('text-secondary');
+        });
 
-    shuffle()
+        audio.addEventListener('ended', function () {
+
+            if (shuffleIcon.classList.contains('activeShuffle')) {
+                let currentIndex = albumDataArray.findIndex(element => element.preview === audio.src);
+    
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * albumDataArray.length);
+                } while (newIndex === currentIndex); 
+
+                const nextElement = albumDataArray[newIndex];
+                barControlAlbum(nextElement);
+                audio.src = nextElement.preview;
+                audio.play();
+
+                const play1 = document.getElementById('play1');
+                if (audio.paused) {
+                    play1.classList.remove('bi-pause-circle-fill');
+                    play1.classList.add('bi-play-circle-fill');
+                } else {
+                    play1.classList.remove('bi-play-circle-fill');
+                    play1.classList.add('bi-pause-circle-fill');
+                }
+            }
+        });
+    }
+    
+    shuffle();
 
     function repeat() {
         const repeatIcon = document.getElementById('repeat-icon')
@@ -417,23 +455,30 @@ function barControl(song) {
 
     repeat()
 
+    
     function nextSong() {
-        const nextIcon = document.getElementById('next-icon')
+        const nextIcon = document.getElementById('next-icon');
         nextIcon.addEventListener('click', function () {
-            fetchArtist()
+            let currentIndex = albumDataArray.findIndex(element => element.preview === audio.src);
+                currentIndex = (currentIndex + 1) % albumDataArray.length;
+    
+            const nextElement = albumDataArray[currentIndex];
+            barControlAlbum(nextElement);
+            audio.src = nextElement.preview;
+            audio.play();
+    
             if (audio.played) {
                 play1.classList.remove('bi-play-circle-fill');
                 play1.classList.add('bi-pause-circle-fill');
-                audio.play();
             } else {
                 play1.classList.remove('bi-pause-circle-fill');
                 play1.classList.add('bi-play-circle-fill');
-                audio.pause();
             }
-        })
+            
+        });
     }
-
-    nextSong()
+    
+    nextSong();
 
     const volumeBarContainer = document.getElementById('volume-bar-container');
     const volumeBar = document.getElementById('volume-bar');

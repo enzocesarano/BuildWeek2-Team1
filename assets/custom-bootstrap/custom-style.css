@@ -211,19 +211,20 @@ a:hover {
   cursor: pointer;
   transition-duration: 0.2s;
 }
-.hover2 :hover {
-  background-color: rgba(0, 0, 0, 0.3) !important;
+
+.hover2:hover {
+  background-color: rgba(0, 0, 0, 0.4) !important;
 }
-.hover2 :hover #playAlbum {
+.hover2:hover #playAlbum, .hover2:hover #playArtist {
   opacity: 1;
   transform: translate(0%, -20%);
 }
 
-#playAlbum {
+#playAlbum, #playArtist {
   opacity: 0;
   transition-duration: 0.3s;
 }
-#playAlbum:hover {
+#playAlbum:hover, #playArtist:hover {
   color: #1ED760 !important;
   background-color: transparent !important;
 }
@@ -264,7 +265,7 @@ a:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   /* Background trasparente */
   z-index: 9999;
   /* Z-index maggiore del resto */
@@ -278,6 +279,10 @@ a:hover {
 .navbar-mobile .nav-link:hover {
   color: #1ED760;
   /* Colore hover per le icone */
+}
+
+#sectionControl {
+  bottom: 0 !important;
 }
 
 /*MOBILE*/
@@ -307,6 +312,16 @@ a:hover {
     flex: 0 0 50%;
     /* Ridimensiona gli album al 50% della larghezza del contenitore */
     max-width: 50%;
+  }
+}
+@media (max-width: 767.98px) {
+  #sectionControl {
+    bottom: 51px !important;
+  }
+  #containerPlayer {
+    border-radius: 5px !important;
+    border: none !important;
+    width: 95% !important;
   }
 }
 /*!

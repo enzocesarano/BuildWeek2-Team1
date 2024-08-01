@@ -345,17 +345,17 @@ a {
 .hover2 {
     cursor: pointer;
     transition-duration: 0.2s;
-    & :hover {
-        background-color: rgba(0, 0, 0, 0.3) !important;
-        & #playAlbum {
-            opacity: 1;
-            transform: translate(0%, -20%);
-        }
+}
+
+.hover2:hover {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    & #playAlbum, #playArtist {
+        opacity: 1;
+        transform: translate(0%, -20%);
     }
 }
 
-
-#playAlbum {
+#playAlbum, #playArtist {
     opacity: 0;
     transition-duration: 0.3s;
 
@@ -402,7 +402,7 @@ a {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     /* Background trasparente */
     z-index: 9999;
     /* Z-index maggiore del resto */
@@ -418,8 +418,13 @@ a {
     /* Colore hover per le icone */
 }
 
+#sectionControl{
+    bottom: 0 !important;
+}
+
 /*MOBILE*/
 @media (max-width: 576px) {
+
     .bgGray {
         background-color: transparent !important;
         /* Usa !important per forzare la sovrascrittura */
@@ -453,5 +458,19 @@ a {
     }
 
 }
+
+@media  (max-width: 767.98px) {
+
+    #sectionControl{
+        bottom: 51px !important;
+    }
+
+    #containerPlayer {
+        border-radius: 5px !important;
+        border: none !important;
+        width: 95% !important;
+    }
+}
+
 
 @import "scss/bootstrap.scss";

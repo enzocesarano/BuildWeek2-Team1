@@ -404,7 +404,7 @@ function barControl(song) {
 
     function shuffle() {
         const shuffleIcon = document.getElementById('shuffle-icon');
-    
+
         shuffleIcon.addEventListener('click', function () {
             shuffleIcon.classList.toggle('activeShuffle');
             shuffleIcon.classList.toggle('text-secondary');
@@ -414,11 +414,11 @@ function barControl(song) {
 
             if (shuffleIcon.classList.contains('activeShuffle')) {
                 let currentIndex = albumDataArray.findIndex(element => element.preview === audio.src);
-    
+
                 let newIndex;
                 do {
                     newIndex = Math.floor(Math.random() * albumDataArray.length);
-                } while (newIndex === currentIndex); 
+                } while (newIndex === currentIndex);
 
                 const nextElement = albumDataArray[newIndex];
                 barControlAlbum(nextElement);
@@ -436,7 +436,7 @@ function barControl(song) {
             }
         });
     }
-    
+
     shuffle();
 
     function repeat() {
@@ -455,18 +455,18 @@ function barControl(song) {
 
     repeat()
 
-    
+
     function nextSong() {
         const nextIcon = document.getElementById('next-icon');
         nextIcon.addEventListener('click', function () {
             let currentIndex = albumDataArray.findIndex(element => element.preview === audio.src);
-                currentIndex = (currentIndex + 1) % albumDataArray.length;
-    
+            currentIndex = (currentIndex + 1) % albumDataArray.length;
+
             const nextElement = albumDataArray[currentIndex];
             barControlAlbum(nextElement);
             audio.src = nextElement.preview;
             audio.play();
-    
+
             if (audio.played) {
                 play1.classList.remove('bi-play-circle-fill');
                 play1.classList.add('bi-pause-circle-fill');
@@ -474,10 +474,10 @@ function barControl(song) {
                 play1.classList.remove('bi-pause-circle-fill');
                 play1.classList.add('bi-play-circle-fill');
             }
-            
+
         });
     }
-    
+
     nextSong();
 
     const volumeBarContainer = document.getElementById('volume-bar-container');
@@ -527,3 +527,77 @@ function barControl(song) {
 
     audio.addEventListener('timeupdate', updateProgressBar);
 }
+
+
+
+
+function fetchAlbum() {
+    fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/`)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('error');
+            }
+        })
+        .then((album) => {
+            console.log(album);
+            /* const albumSection = document.getElementById('albumSection');
+            const albumData = JSON.stringify(album);
+
+            albumSection.innerHTML += `<div class="col p-0 mb-10">
+                                <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2">
+                                    <div class="w-100 position-relative">
+                                        <img src="${album.cover_big}" class="card-img-top w-100"
+                                            alt="${album.title}">
+                                        <div>
+                                        <svg class="w-30 position-absolute top-75 start-70 playAlbum" data-preview="${album.tracks.data[0].preview}" data-artist='${albumData.replace(/'/g, "&apos;")}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
+                                            <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0 py-2">
+                                        <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${album.title}</p>
+                                        <p class="card-text fs-small">${album.artist.name}</p>
+                                    </div>
+                                </div>`
+
+
+            const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
+
+            newPlayAlbum.forEach(element => {
+                const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+                element.addEventListener('click', function () {
+                    audio.src = element.getAttribute('data-preview'); 
+                    audio.play();
+                    sectionControl.classList.remove('d-none');
+                    barControl(artistData1); 
+                    barControlAlbum1(artistData1);
+                });
+            });
+
+            function barControlAlbum1(data) {
+                sectionAlbum.innerHTML = `
+                            <div class="col d-flex text-secondary align-items-center">
+                                <div class="row align-items-center">
+                                    <div class="col w-25 d-none d-md-flex align-items-center">
+                                        <img src="${data.cover_big}" class="w-100" alt="icona">
+                                    </div>
+                                    <div class="col text-start d-flex flex-column nowrap">
+                                        <p class="text-light fs-small m-0 text-truncate">${data.tracks.data[0].title_short}</p>
+                                        <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
+                                    </div>
+                                    <div class="col d-none d-md-block">
+                                        <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                                    </div>
+                                </div> 
+                            </div>`
+            } */
+        })
+        .catch((error) => {
+            console.log('errore', error);
+        });
+}
+
+fetchAlbum();

@@ -115,12 +115,10 @@ function display(art) {
 }
 
 function playNext(song) {
-    // Aggiungi la canzone attuale alla cronologia
     songHistory.push(song);
     currentSongIndex++;
-
-    audio.src = song.preview;
-    audio.play();
+    audio.src = song.preview
+    audio.play()
     barControlAlbum(song);
 }
 
@@ -478,7 +476,7 @@ fetchAlbum();
 
 
 
-const randomArtistDetails = [48975581, 27, 542, 8706544, 1247, 533];
+const randomArtistDetails = [48975581, 27, 542, 8706544, 564, 64816];
 
 function fetchArtistDetails() {
     randomArtistDetails.forEach(element => {

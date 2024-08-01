@@ -215,16 +215,16 @@ a:hover {
 .hover2:hover {
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
-.hover2:hover #playAlbum, .hover2:hover #playArtist {
+.hover2:hover .playAlbum, .hover2:hover .playArtist {
   opacity: 1;
   transform: translate(0%, -20%);
 }
 
-#playAlbum, #playArtist {
+.playAlbum, .playArtist {
   opacity: 0;
   transition-duration: 0.3s;
 }
-#playAlbum:hover, #playArtist:hover {
+.playAlbum:hover, .playArtist:hover {
   color: #1ED760 !important;
   background-color: transparent !important;
 }

@@ -349,13 +349,13 @@ a {
 
 .hover2:hover {
     background-color: rgba(0, 0, 0, 0.4) !important;
-    & #playAlbum, #playArtist {
+    & .playAlbum, .playArtist {
         opacity: 1;
         transform: translate(0%, -20%);
     }
 }
 
-#playAlbum, #playArtist {
+.playAlbum, .playArtist {
     opacity: 0;
     transition-duration: 0.3s;
 

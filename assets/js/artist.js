@@ -45,7 +45,7 @@ function setBackgroundColor(art) {
     };
 }
 
-
+const audio = document.createElement('audio');
 
 function fetchArtistDetails(artistId) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/${artistId}/top?limit=50`)
@@ -59,6 +59,7 @@ function fetchArtistDetails(artistId) {
         .then((artist) => {
             console.log(artist)
             colHeroImg.innerHTML = `
+                    <div class="row bgCenterDark p-4 pb-0">
                         <div class="col-12 d-flex justify-content-between mb-3">
                             <div class="d-flex">
                                 <div
@@ -101,13 +102,10 @@ function fetchArtistDetails(artistId) {
 
                         <div class="col-4">
                             <img src="${artist.data[0].contributors[0].picture_xl}" class="rounded-circle w-60 shadow" alt="">
-                        </div>`
-
-            containerArtist.innerHTML = `
-                            <div class="row">
-                                <div class="col m-0">
+                        </div>
+                        <div class="col m-0">
                                     <div class="row">
-                                        <div class="col d-flex align-items-center">
+                                        <div class="col d-flex align-items-center mb-6">
                                             <div class="me-4 btn-round">
                                                 <div>
                                                     <svg class="bgSpoty rounded-circle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,39 +127,25 @@ function fetchArtistDetails(artistId) {
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="row px-4 pb-2 text-light my-4 fs-6 border-bottom border-light-subtle opacity-50 align-items-center">
-                                    <div class="col-6 d-flex">
-                                        <div class="col-1 px-0 me-2 mb-0 align-self-center">#</div>
-                                         <div class="col px-0 mb-0 align-self-center">TITOLO</div>
+                                    <div class="row text-light fs-6 align-items-center">
+                                    <div class="col-12">
+                                        <p class="text-light fs-3">Popolari</p>
                                     </div>
-                                    <div class="col-3 px-0">
-                                        <p class="text-end mb-0">RIPRODUZIONE</p>
+
+                                    <div class="col-6 d-flex p-0">
+                                        <p class="col-1  align-self-center">#</p>
+                                         <p class="col align-self-center">TITOLO</p>
                                     </div>
-                                        <div class="col-3 px-0">
-                                            <p class="mb-0 text-end"><i class="bi bi-clock"></i></p>
+                                    <div class="col-5 p-0">
+                                        <p class="text-end text-center">RIPRODUZIONE</p>
+                                    </div>
+                                        <div class="col-1 p-0">
+                                            <p class="mb-0 text-end me-3"><i class="bi bi-clock"></i></p>
                                         </div>
                                     </div>
                                 </div>
+                    </div>`
 
-                                ${artist.data.map((element, index) => {
-                                    const trackDurationMinutes = Math.floor(element.duration / 60);
-                                    const trackDurationSeconds = element.duration % 60;
-                                    return `
-                                            <div class="col-12 d-flex">
-                                                <div class="row px-4 text-light my-4 fs-6 align-items-center">
-                                                    <div class="col-1 px-0 me-2 mb-0 align-self-center">${index + 1}</div>
-                                                    <div class="col px-0 mb-0">
-                                                        <h4 class="mb-1">${element.title}</h4>
-                                                        <p>${element.artist.name}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3 px-0 text-end">${element.rank}</div>
-                                                <div class="col-3 px-0 text-end">${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}</div>
-                                            </div>
-                                        `;
-                                }).join('')}
-
-                             </div>`;
 
             const destra = document.getElementById('destra')
             dropdown.addEventListener('click', function () {
@@ -169,37 +153,332 @@ function fetchArtistDetails(artistId) {
             })
 
             setBackgroundColor(artist.data[0])
+
+            artist.data.map((element, index) => {
+                if (index < 10) {
+                    const albumData = JSON.stringify(artist.data[index])
+                    const trackDurationMinutes = Math.floor(element.duration / 60);
+                    const trackDurationSeconds = element.duration % 60;
+                    containerArtist.innerHTML += `
+                                            <div class="col-6 d-flex p-0 align-items-center">
+                                                <div class="col-1 align-self-center fs-4">
+                                                    <p>${index + 1}</p>
+                                                </div>
+                                                <div class="p-0 cursorPointer btnPlay" data-preview="${element.preview}" data-artist='${albumData.replace(/'/g, "&apos;")}'>
+                                                    <h4 class="mb-1 fs-6">${element.title}</h4>
+                                                    <p class="fs-small text-secondary mb-0">${element.artist.name}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <p class="text-end mb-0 text-secondary text-center">${element.rank}</p>
+                                            </div>
+                                            <div class="col-1">
+                                                <p class="text-end text-secondary">${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}</p>
+                                            </div>`;
+
+                }
         })
-        .catch((error) => {
-            console.log('errore', error);
+                
+
+            const newPlayAlbum = document.querySelectorAll(`.btnPlay`);
+
+        newPlayAlbum.forEach((element) => {
+        const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+        console.log(artistData1)
+        element.addEventListener('click', function () {
+            audio.src = element.getAttribute('data-preview');
+            audio.play();
+            sectionControl.classList.remove('d-none');
+            barControl(artistData1);
+            barControlAlbum1(artistData1);
         });
+    });
+
+    function barControlAlbum1(data) {
+        sectionAlbum.innerHTML = `
+                                <div class="col d-flex text-secondary align-items-center">
+                                    <div class="row align-items-center">
+                                        <div class="col w-25 d-none d-md-flex align-items-center">
+                                            <img src="${data.album.cover}" class="w-100" alt="icona">
+                                        </div>
+                                        <div class="col text-start d-flex flex-column nowrap">
+                                            <p class="text-light fs-small m-0 text-truncate">${data.title_short}</p>
+                                            <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
+                                        </div>
+                                        <div class="col d-none d-md-block">
+                                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                                        </div>
+                                    </div> 
+                                </div>`
+    }
+})
+        .catch ((error) => {
+    console.log('errore', error);
+});
+
 
 }
 
 fetchArtistDetails(addressBarParameters);
 
-function heroDisplay(hero) {
+const sectionPlayer = document.getElementById('sectionPlayer');
+const sectionAlbum = document.getElementById('sectionAlbum');
+const sectionVolume = document.getElementById('sectionVolume');
 
+
+function play(song) {
+    const btnPlay = document.querySelectorAll('.btnPlay');
+    btnPlay.forEach(element => {
+        element.addEventListener('click', function (e) {
+            e.preventDefault();
+            audio.src = element.getAttribute('data-preview')
+            audio.play()
+            barControl(song);
+            sectionControl.classList.remove('d-none');
+        });
+    });
 }
 
 
+function barControlAlbum(song) {
+    sectionAlbum.innerHTML = `
+                <div class="col d-flex text-secondary align-items-center">
+                    <div class="row align-items-center">
+                        <div class="col w-25 d-none d-md-flex align-items-center">
+                            <img src="${song.album.cover}" class="w-100" alt="icona">
+                        </div>
+                        <div class="col text-start d-flex flex-column nowrap">
+                            <p class="text-light fs-small m-0 text-truncate">${song.title_short}</p>
+                            <p class="fs-supersmall m-0 text-truncate">${song.artist.name}</p>
+                        </div>
+                        <div class="col d-none d-md-block">
+                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                        </div>
+                    </div> 
+                </div>`;
+}
 
-/* ${artist.data[0].contributors[0].picture_xl} */
+function barControl(song) {
+    sectionPlayer.innerHTML = `
+                        <div class="col-12 d-flex justify-content-center align-items-center hover">
+                            <div class="m-2 mx-3">
+                                <i id="shuffle-icon" class="bi bi-shuffle text-secondary fs-5 d-none d-md-inline"></i>
+                            </div>
+                            <div class="m-2">
+                                <i id="backward-icon" class="bi bi-skip-backward-fill text-secondary fs-5"></i>
+                            </div>
+                            <div class="m-2 mx-4">
+                                <i id="play1" class="bi bi-pause-circle-fill text-secondary fs-2"></i>
+                            </div>
+                            <div class="m-2">
+                                <i id="next-icon" class="bi bi-skip-forward-fill text-secondary fs-5"></i>
+                            </div>
+                            <div class="m-2 mx-3">
+                                <i id="repeat-icon" class="bi bi-repeat text-secondary fs-5 d-none d-md-inline"></i>
+                            </div>
+                        </div>
+                        <div class="col d-none d-md-flex justify-content-center align-items-center">
+                            <p class="fs-small mb-0 text-light" id="minutesCurrent">00</p>
+                            <p class="fs-small mb-0 text-light">:</p>
+                            <p class="fs-small mb-0 text-light" id="secondsCurrent">00</p>
+                            <div id="progress-bar-container" class="progress m-2 position-relative w-50"
+                                style="height: 5px; background-color: #444;">
+                                <div id="progress-bar" class="progress-bar bg-light" role="progressbar" style="width: 0%; transition: none;">
+                                </div>
+                            </div>
+                            <p class="fs-small mb-0 text-light" id="minutesDuration">00</p>
+                            <p class="fs-small mb-0 text-light">:</p>
+                            <p class="fs-small mb-0 text-light" id="secondsDuration">00</p>
+                         </div>`;
 
-/* ${artist.data.map((element, index) => {
-    const trackDurationMinutes = Math.floor(element.duration / 60);
-    const trackDurationSeconds = element.duration % 60;
-    return `
-            <div class="col-12 d-flex">
-                <div class="row px-4 text-light my-4 fs-6 align-items-center">
-                    <div class="col-1 px-0 me-2 mb-0 align-self-center">${index + 1}</div>
-                    <div class="col px-0 mb-0">
-                        <h4 class="mb-1">${element.title}</h4>
-                        <p>${element.artist.name}</p>
-                    </div>
-                </div>
-                <div class="col-3 px-0 text-end">${element.rank}</div>
-                <div class="col-3 px-0 text-end">${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}</div>
-            </div>
-        `;
-}).join('')} */
+    sectionVolume.innerHTML = `
+                        <div class="row d-none d-md-flex">
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <div class="m-2">
+                                    <i class="bi bi-mic-fill text-secondary fs-6"></i>
+                                </div>
+                                <div class="m-2">
+                                    <i class="bi bi-archive text-secondary fs-6"></i>
+                                </div>
+                                <div class="m-2">
+                                    <i class="bi bi-music-player text-secondary fs-6"></i>
+                                </div>
+                                <div class="m-2">
+                                    <i id="btnVolume" class="bi bi-volume-up text-secondary fs-4"></i>
+                                </div>
+                                <div class="m-2" style="flex-grow: 1;">
+                                    <div id="volume-bar-container" class="progress" style="height: 5px; cursor: pointer;">
+                                        <input type="range" id="volume-bar" class="volume-range" min="0" max="100" value="50">
+                                    </div>
+                                </div>
+                                <div class="m-2">
+                                    <i class="bi bi-arrows-angle-expand text-light fs-"></i>
+                                </div>
+                            </div>
+                        </div>`;
+
+    const play1 = document.getElementById('play1');
+
+    if (play1) {
+        play1.addEventListener('click', function () {
+            if (audio.paused) {
+                play1.classList.remove('bi-play-circle-fill');
+                play1.classList.add('bi-pause-circle-fill');
+                audio.play();
+            } else {
+                play1.classList.remove('bi-pause-circle-fill');
+                play1.classList.add('bi-play-circle-fill');
+                audio.pause();
+            }
+        });
+    }
+
+    const progressBarContainer = document.getElementById('progress-bar-container');
+    const progressBar = document.getElementById('progress-bar');
+    let isDragging = false;
+
+    if (progressBarContainer) {
+        progressBarContainer.addEventListener('mousedown', function (e) {
+            isDragging = true;
+            updateProgress(e);
+        });
+
+        document.addEventListener('mousemove', function (e) {
+            if (isDragging) {
+                updateProgress(e);
+            }
+        });
+
+        document.addEventListener('mouseup', function () {
+            isDragging = false;
+        });
+
+        progressBarContainer.addEventListener('click', function (e) {
+            updateProgress(e);
+        });
+
+        function updateProgress(e) {
+            const rect = progressBarContainer.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const totalWidth = rect.width;
+            const percentage = Math.max(0, Math.min(1, offsetX / totalWidth));
+            progressBar.style.width = (percentage * 100) + '%';
+            audio.currentTime = percentage * audio.duration;
+        }
+    }
+
+    function updateProgressBar() {
+        let currentTime = audio.currentTime;
+        let totalDuration = audio.duration;
+        let progress = (currentTime / totalDuration) * 100;
+        progressBar.style.width = progress + '%';
+
+        const secondsCurrent = document.getElementById('secondsCurrent')
+        secondsCurrent.innerText = currentTime < 10 ? `0${parseInt(currentTime)}` : parseInt(currentTime);
+
+        const secondsDuration = document.getElementById('secondsDuration')
+        secondsDuration.innerText = parseInt(totalDuration) || '00'
+
+        let minutes = Math.floor(currentTime / 60);
+        let seconds = Math.floor(currentTime % 60);
+        const timeElapsed = document.getElementById('time-elapsed');
+        if (timeElapsed) {
+            timeElapsed.textContent = minutes + ':' + (seconds < 10 ? `0${seconds}` : seconds);
+        }
+
+        if (!audio.paused) {
+            requestAnimationFrame(updateProgressBar);
+        }
+    }
+
+    function shuffle() {
+        const shuffleIcon = document.getElementById('shuffle-icon')
+        shuffleIcon.addEventListener('click', function () {
+            shuffleIcon.classList.toggle('activeShuffle')
+            shuffleIcon.classList.toggle('text-secondary')
+        })
+    }
+
+    shuffle()
+
+    function repeat() {
+        const repeatIcon = document.getElementById('repeat-icon')
+        repeatIcon.addEventListener('click', function () {
+            repeatIcon.classList.toggle('activeShuffle')
+            repeatIcon.classList.toggle('text-secondary')
+        })
+
+        audio.addEventListener('ended', function () {
+            if (repeatIcon.classList.contains('activeShuffle')) {
+                audio.play();
+            }
+        })
+    }
+
+    repeat()
+
+    function nextSong() {
+        const nextIcon = document.getElementById('next-icon')
+        nextIcon.addEventListener('click', function () {
+            fetchArtist()
+            if (audio.played) {
+                play1.classList.remove('bi-play-circle-fill');
+                play1.classList.add('bi-pause-circle-fill');
+                audio.play();
+            } else {
+                play1.classList.remove('bi-pause-circle-fill');
+                play1.classList.add('bi-play-circle-fill');
+                audio.pause();
+            }
+        })
+    }
+
+    nextSong()
+
+    const volumeBarContainer = document.getElementById('volume-bar-container');
+    const volumeBar = document.getElementById('volume-bar');
+    const btnVolume = document.getElementById('btnVolume')
+
+    volumeBarContainer.addEventListener('click', function (event) {
+        const rect = volumeBarContainer.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const volume = offsetX / rect.width;
+        audio.volume = volume;
+    });
+
+    btnVolume.addEventListener('click', () => {
+        audio.muted = !audio.muted;
+        if (audio.muted) {
+            btnVolume.classList.remove('bi-volume-up');
+            btnVolume.classList.add('bi-volume-mute');
+            volumeBar.setAttribute('disabled', true)
+        } else {
+            btnVolume.classList.remove('bi-volume-mute');
+            btnVolume.classList.add('bi-volume-up');
+            volumeBar.removeAttribute('disabled')
+        }
+        volumeBar.value = audio.muted ? 0 : audio.volume * 100;
+        btnVolume.classList.toggle('text-light')
+    });
+
+    audio.addEventListener('ended', function () {
+        const play1 = document.getElementById('play1');
+
+        const shuffleIcon = document.getElementById('shuffle-icon');
+        const repeatIcon = document.getElementById('repeat-icon');
+
+        if (shuffleIcon.classList.contains('activeShuffle')) {
+            fetchArtist();
+        } else if (repeatIcon.classList.contains('activeShuffle')) {
+            audio.currentTime = 0;
+            audio.play();
+            play1.classList.remove('bi-play-circle-fill');
+            play1.classList.add('bi-pause-circle-fill');
+        } else {
+            play1.classList.remove('bi-pause-circle-fill');
+            play1.classList.add('bi-play-circle-fill');
+        }
+    });
+
+    audio.addEventListener('timeupdate', updateProgressBar);
+}

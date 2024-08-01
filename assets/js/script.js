@@ -420,7 +420,7 @@ function fetchAlbum() {
                                             <img src="${album.cover_big}" class="card-img-top w-100"
                                                 alt="${album.title}">
                                             <div>
-                                            <svg id="playAlbum"  class="w-30 position-absolute top-75 start-70 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="w-30 position-absolute top-75 start-70 playAlbum" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
                                                 <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
                                                 </svg>
@@ -446,7 +446,7 @@ fetchAlbum()
 
 
 
-const randomArtistDetails = [48975581, 64816, 564, 27, 8706544, 542]
+const randomArtistDetails = [154, 64816, 5644, 271, 1247, 547];
 
 function fetchArtistDetails() {
     randomArtistDetails.forEach(element => {
@@ -459,7 +459,7 @@ function fetchArtistDetails() {
                 }
             })
             .then((artist) => {
-                const artistData = artist.data[0]
+                const artistData = artist.data[0];
                 console.log(artist.data[0]); // Ottieni i dati dell'artista
                 const artistContainer = document.getElementById('artistContainer');
                 artistContainer.innerHTML += `<div class="col p-0 mb-4">
@@ -468,7 +468,7 @@ function fetchArtistDetails() {
                             <img src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle"
                                  alt="${artistData.contributors[0].name}">
                             <div>
-                                <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" data-artist='${JSON.stringify(artistData)}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
                                     <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
                                 </svg>
@@ -481,21 +481,27 @@ function fetchArtistDetails() {
                     </div>
                 </div>`;
 
-                // Aggiungi l'event listener qui per ogni playArtist
-                const playArtist = document.querySelectorAll(`.playArtist`);
-                function qualunque(qualcosa) {
-                    playArtist.forEach(element => {
-                        element.addEventListener('click', function () {
-                            audio.src = element.getAttribute('data-preview'); // Ottieni il preview dall'attributo
-                            audio.play();
-                            sectionControl.classList.remove('d-none');
-                            barControl(qualcosa); // Passa l'intero oggetto artista
-                            barControlAlbum(qualcosa); // Puoi passare l'oggetto artista se serve
-                        });
+
+                // Aggiungi l'event listener per il nuovo elemento appena creato
+                const newPlayArtist = artistContainer.querySelectorAll(`.playArtist`);
+
+                /* newPlayArtist.forEach(element => {
+                    const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+                    console.log(artistData1)
+                }) */
+
+                newPlayArtist.forEach(element => {
+                    element.addEventListener('click', function () {
+                        const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+                        console.log(artistData1)
+                        audio.src = element.getAttribute('data-preview'); // Ottieni il preview dall'attributo
+                        audio.play();
+                        sectionControl.classList.remove('d-none');
+                        barControl(artistData1); // Passa l'intero oggetto artista
+                        barControlAlbum(artistData1); // Puoi passare l'oggetto artista se serve
                     })
-                }
-                qualunque(artistData)
-                
+
+                });
             })
             .catch((error) => {
                 console.log('errore', error);
@@ -503,4 +509,4 @@ function fetchArtistDetails() {
     });
 }
 
-fetchArtistDetails()
+fetchArtistDetails();

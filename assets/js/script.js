@@ -416,7 +416,7 @@ function fetchAlbum() {
                 console.log(album);
                 const albumSection = document.getElementById('albumSection');
                 const albumData = JSON.stringify(album);
-                
+
                 albumSection.innerHTML += `<div class="col p-0 mb-10">
                                     <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2">
                                         <div class="w-100 position-relative">
@@ -434,7 +434,7 @@ function fetchAlbum() {
                                             <p class="card-text fs-small">${album.artist.name}</p>
                                         </div>
                                     </div>
-                                </div>`;
+
 
                 const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
 
@@ -478,7 +478,7 @@ fetchAlbum();
 
 
 
-const randomArtistDetails = [154, 64816, 5644, 271, 1247, 547];
+const randomArtistDetails = [48975581, 27, 542, 8706544, 1247, 547];
 
 function fetchArtistDetails() {
     randomArtistDetails.forEach(element => {
@@ -492,7 +492,11 @@ function fetchArtistDetails() {
             })
             .then((artist) => {
                 const artistData = artist.data[0];
+
                 console.log(artistData.artist.id); // Ottieni i dati dell'artista
+
+                console.log(artistData)
+                const artistData1 = JSON.stringify(artistData);
                 const artistContainer = document.getElementById('artistContainer');
                 artistContainer.innerHTML += `<div class="col p-0 mb-4">
                     <div class="card p-3 bg-dark border-0 text-secondary hover2">
@@ -500,7 +504,7 @@ function fetchArtistDetails() {
                             <img id="${artistData.artist.id}" src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle click"
                                  alt="${artistData.contributors[0].name}">
                             <div>
-                                <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" data-artist='${JSON.stringify(artistData)}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" data-artist='${artistData1.replace(/'/g, "&apos;")}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
                                     <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
                                 </svg>

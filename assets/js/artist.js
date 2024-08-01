@@ -130,10 +130,10 @@ function fetchArtistDetails(artistId) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 border border-0 border-bottom border-1 border-secondary mb-3">
                                     <div class="row text-light fs-6 align-items-center">
                                     <div class="col-12">
-                                        <p class="text-light fs-3">Popolari</p>
+                                        <p class="text-light fs-2 fw-bold">Popolari</p>
                                     </div>
 
                                     <div class="col-6 d-flex p-0">
@@ -170,7 +170,7 @@ function fetchArtistDetails(artistId) {
                     const trackDurationMinutes = Math.floor(element.duration / 60);
                     const trackDurationSeconds = element.duration % 60;
                     containerArtist.innerHTML += `
-                                            <div class="col-6 d-flex p-0 align-items-center">
+                                            <div class="col-6 d-flex p-0 align-items-center mb-3">
                                                 <div class="col-1 align-self-center fs-4">
                                                     <p>${index + 1}</p>
                                                 </div>
@@ -531,8 +531,8 @@ function barControl(song) {
 
 
 
-function fetchAlbum() {
-    fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/`)
+function fetchAlbum(artist) {
+    fetch(`https://striveschool-api.herokuapp.com/api/deezer/artist/${artist}/albums`)
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -541,63 +541,36 @@ function fetchAlbum() {
             }
         })
         .then((album) => {
-            console.log(album);
-            /* const albumSection = document.getElementById('albumSection');
-            const albumData = JSON.stringify(album);
+            const array = album.data
+            array.forEach(element => {
+                console.log(element);
+                const albumSection = document.getElementById('albumSection');
 
-            albumSection.innerHTML += `<div class="col p-0 mb-10">
-                                <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2">
+                albumSection.innerHTML += `<div class="col p-0">
+                                <div id=${element.id} class="card p-3 bg-dark border-0 text-secondary hover2 click">
                                     <div class="w-100 position-relative">
-                                        <img src="${album.cover_big}" class="card-img-top w-100"
-                                            alt="${album.title}">
+                                        <img src="${element.cover_big}" class="card-img-top w-100"
+                                            alt="${element.title}">
                                         <div>
-                                        <svg class="w-30 position-absolute top-75 start-70 playAlbum" data-preview="${album.tracks.data[0].preview}" data-artist='${albumData.replace(/'/g, "&apos;")}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
-                                            <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
-                                            </svg>
-                                        </div>
                                     </div>
                                     <div class="card-body p-0 py-2">
-                                        <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${album.title}</p>
-                                        <p class="card-text fs-small">${album.artist.name}</p>
+                                        <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${element.title}</p>
+                                        <p class="card-text fs-small">${element.release_date}</p>
                                     </div>
                                 </div>`
+            })
 
-
-            const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
-
-            newPlayAlbum.forEach(element => {
-                const artistData1 = JSON.parse(element.getAttribute('data-artist'));
-                element.addEventListener('click', function () {
-                    audio.src = element.getAttribute('data-preview'); 
-                    audio.play();
-                    sectionControl.classList.remove('d-none');
-                    barControl(artistData1); 
-                    barControlAlbum1(artistData1);
-                });
-            });
-
-            function barControlAlbum1(data) {
-                sectionAlbum.innerHTML = `
-                            <div class="col d-flex text-secondary align-items-center">
-                                <div class="row align-items-center">
-                                    <div class="col w-25 d-none d-md-flex align-items-center">
-                                        <img src="${data.cover_big}" class="w-100" alt="icona">
-                                    </div>
-                                    <div class="col text-start d-flex flex-column nowrap">
-                                        <p class="text-light fs-small m-0 text-truncate">${data.tracks.data[0].title_short}</p>
-                                        <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
-                                    </div>
-                                    <div class="col d-none d-md-block">
-                                        <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
-                                    </div>
-                                </div> 
-                            </div>`
-            } */
+            const click = document.querySelectorAll('.click')
+                click.forEach(element => {
+                    element.addEventListener('click', function() {
+                        const albumId = element.id;
+                        location.assign(`./album.html?albumId=${albumId}`)
+                    })  
+                })
         })
         .catch((error) => {
             console.log('errore', error);
         });
 }
 
-fetchAlbum();
+fetchAlbum(addressBarParameters);

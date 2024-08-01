@@ -227,7 +227,12 @@ $utilities: map-merge($utilities,
 }
 
 .bgCenterBlack {
-    background: linear-gradient(20deg, rgba(0, 0, 0, 1) 5%, rgb(0, 0, 0, 0) 75%);
+    background: linear-gradient(20deg, #000000 5%, rgb(0, 0, 0, 0) 75%);
+    /* background: linear-gradient(90deg, #000000 0%, #121212 100%); */
+}
+
+.bgCenterDark {
+    background: linear-gradient(5deg, #212529 25%, rgba(0, 0, 0, 0.5) 75%);
     /* background: linear-gradient(90deg, #000000 0%, #121212 100%); */
 }
 
@@ -286,11 +291,11 @@ a {
     color: #1ED760 !important;
 }
 
-.bg-img-dinamica {
+/* .bg-img-dinamica {
     background-image: url('../img/main/image-18.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
 .icon-container {
     position: relative;

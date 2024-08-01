@@ -400,7 +400,7 @@ function barControl(song) {
 
 
 
-const randomAlbum = [325940967, 597941372, 302867697, 577200911, 80513002, 1709754]
+const randomAlbum = [505337711, 597941372, 302867697, 577200911, 80513002, 1709754];
 
 function fetchAlbum() {
     randomAlbum.forEach(element => {
@@ -413,35 +413,67 @@ function fetchAlbum() {
                 }
             })
             .then((album) => {
-                const albumSection = document.getElementById('albumSection')
+                console.log(album);
+                const albumSection = document.getElementById('albumSection');
+                const albumData = JSON.stringify(album);
+                
                 albumSection.innerHTML += `<div class="col p-0 mb-10">
                                     <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2">
                                         <div class="w-100 position-relative">
                                             <img src="${album.cover_big}" class="card-img-top w-100"
                                                 alt="${album.title}">
                                             <div>
-                                            <svg class="w-30 position-absolute top-75 start-70 playAlbum" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg class="w-30 position-absolute top-75 start-70 playAlbum" data-preview="${album.tracks.data[0].preview}" data-artist='${albumData.replace(/'/g, "&apos;")}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
                                                 <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
                                                 </svg>
                                             </div>
-    
                                         </div>
                                         <div class="card-body p-0 py-2">
                                             <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${album.title}</p>
                                             <p class="card-text fs-small">${album.artist.name}</p>
                                         </div>
                                     </div>
-                                </div>`
+                                </div>`;
 
+                const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
+
+                newPlayAlbum.forEach(element => {
+                    const artistData1 = JSON.parse(element.getAttribute('data-artist'));
+                    element.addEventListener('click', function () {
+                        audio.src = element.getAttribute('data-preview'); 
+                        audio.play();
+                        sectionControl.classList.remove('d-none');
+                        barControl(artistData1); 
+                        barControlAlbum1(artistData1);
+                    });
+                });
+
+                function barControlAlbum1(data) {
+                    sectionAlbum.innerHTML = `
+                                <div class="col d-flex text-secondary align-items-center">
+                                    <div class="row align-items-center">
+                                        <div class="col w-25 d-none d-md-flex align-items-center">
+                                            <img src="${data.cover_big}" class="w-100" alt="icona">
+                                        </div>
+                                        <div class="col text-start d-flex flex-column nowrap">
+                                            <p class="text-light fs-small m-0 text-truncate">${data.tracks.data[0].title_short}</p>
+                                            <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
+                                        </div>
+                                        <div class="col d-none d-md-block">
+                                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                                        </div>
+                                    </div> 
+                                </div>`;
+                }
             })
             .catch((error) => {
                 console.log('errore', error);
             });
-    })
+    });
 }
 
-fetchAlbum()
+fetchAlbum();
 
 
 
@@ -460,12 +492,12 @@ function fetchArtistDetails() {
             })
             .then((artist) => {
                 const artistData = artist.data[0];
-                console.log(artist.data[0]); // Ottieni i dati dell'artista
+                console.log(artistData.artist.id); // Ottieni i dati dell'artista
                 const artistContainer = document.getElementById('artistContainer');
                 artistContainer.innerHTML += `<div class="col p-0 mb-4">
                     <div class="card p-3 bg-dark border-0 text-secondary hover2">
                         <div class="position-relative">
-                            <img src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle"
+                            <img id="${artistData.artist.id}" src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle click"
                                  alt="${artistData.contributors[0].name}">
                             <div>
                                 <svg class="w-30 position-absolute top-75 start-70 playArtist" data-preview="${artistData.preview}" data-artist='${JSON.stringify(artistData)}' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -485,11 +517,6 @@ function fetchArtistDetails() {
                 // Aggiungi l'event listener per il nuovo elemento appena creato
                 const newPlayArtist = artistContainer.querySelectorAll(`.playArtist`);
 
-                /* newPlayArtist.forEach(element => {
-                    const artistData1 = JSON.parse(element.getAttribute('data-artist'));
-                    console.log(artistData1)
-                }) */
-
                 newPlayArtist.forEach(element => {
                     element.addEventListener('click', function () {
                         const artistData1 = JSON.parse(element.getAttribute('data-artist'));
@@ -502,6 +529,17 @@ function fetchArtistDetails() {
                     })
 
                 });
+
+
+                const click = document.querySelectorAll('.click')
+                click.forEach(element => {
+                    element.addEventListener('click', function() {
+                        const artistId = element.id;
+                        location.assign(`./artist.html?artistId=${artistId}`)
+                    })  
+                })
+
+
             })
             .catch((error) => {
                 console.log('errore', error);

@@ -433,7 +433,7 @@ function fetchAlbum() {
                                             <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${album.title}</p>
                                             <p class="card-text fs-small">${album.artist.name}</p>
                                         </div>
-                                    </div>
+                                    </div>`
 
 
                 const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
@@ -464,7 +464,7 @@ function fetchAlbum() {
                                             <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
                                         </div>
                                     </div> 
-                                </div>`;
+                                </div>`
                 }
             })
             .catch((error) => {

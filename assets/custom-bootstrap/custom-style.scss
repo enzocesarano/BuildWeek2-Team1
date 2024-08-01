@@ -481,5 +481,12 @@ a {
     cursor: pointer;
 }
 
+.textGreen {
+    color: #1ED760 !important;
+}
+
+main {
+    overflow-x: auto;
+}
 
 @import "scss/bootstrap.scss";

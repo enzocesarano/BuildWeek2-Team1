@@ -61,37 +61,33 @@ function fetchArtistDetails(artistId) {
             }
         })
         .then((artist) => {
-            console.log(artist)
+            console.log(artist.data)
             colHeroImg.innerHTML = `
                     <div class="row bgCenterDark p-4 pb-0">
                         <div class="col-12 d-flex justify-content-between mb-3">
                             <div class="d-flex">
-                                <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
+                                <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
                                     <i class="fa-solid fa-chevron-left fs-5"></i>
                                 </div>
-
-                                <div
-                                    class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
+                                <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
                                     <i class="fa-solid fa-chevron-right fs-5"></i>
                                 </div>
                             </div>
                             <div class="d-flex text-light bg-black rounded-5 justify-content-end align-items-center">
                                 <div class="square me-3">
-                                    <img src="assets/img/search/image-1.jpeg" class="w-100 rounded-circle" alt="">
+                                    <img src="assets/img/search/image-1.jpeg" class="w-100 rounded-circle" alt="Team 1 Image">
                                 </div>
                                 <p class="m-0 me-3">Team 1...</p>
-                                <i id="dropdown" class="fa-solid fa-caret-down fs-5 align-self-self pe-3"></i>
+                                <i id="dropdown" class="fa-solid fa-caret-down fs-5 align-self-center pe-3"></i>
                             </div>
                         </div>
 
                         <div class="col-8 mb-3">
                             <div id="colHero" class="row text-light rounded-2 m-2">
-
                                 <div class="col-9 d-flex flex-column justify-content-end">
                                     <div>
                                         <p class="pt-3 fs-small mb-2 d-flex align-items-center">
-                                            <span class=" icon-container me-2">
+                                            <span class="icon-container me-2">
                                                 <i class="bi bi-patch-check-fill fs-3 icon-background"></i>
                                                 <i class="bi bi-patch-check fs-3 icon-foreground"></i>
                                             </span>Artista Verificato
@@ -105,51 +101,73 @@ function fetchArtistDetails(artistId) {
                         </div>
 
                         <div class="col-4">
-                            <img src="${artist.data[0].contributors[0].picture_xl}" class="rounded-circle w-60 shadow" alt="">
+                            <img src="${artist.data[0].contributors[0].picture_xl}" class="rounded-circle w-60 shadow" alt="Immagine di ${artist.data[0].contributors[0].name}">
                         </div>
-                        <div class="col m-0">
-                                    <div class="row">
-                                        <div class="col d-flex align-items-center mb-6">
-                                            <div class="me-4 btn-round">
-                                                <div>
-                                                    <svg class="bgSpoty rounded-circle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
-                                                    <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="me-4">
-                                                <i class="bi bi-suit-heart icon-spotify-album"></i>
-                                            </div>
-                                            <div class="me-4">
-                                                <i class="bi bi-arrow-down-circle icon-spotify-album"></i>
-                                            </div>
-                                            <div>
-                                                <p class="fs-3">...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 border border-0 border-bottom border-1 border-secondary mb-3">
-                                    <div class="row text-light fs-6 align-items-center">
-                                    <div class="col-12">
-                                        <p class="text-light fs-2 fw-bold">Popolari</p>
-                                    </div>
 
-                                    <div class="col-6 d-flex p-0">
-                                        <p class="col-1  align-self-center">#</p>
-                                         <p class="col align-self-center">TITOLO</p>
-                                    </div>
-                                    <div class="col-5 p-0">
-                                        <p class="text-end text-center">RIPRODUZIONE</p>
-                                    </div>
-                                        <div class="col-1 p-0">
-                                            <p class="mb-0 text-end me-3"><i class="bi bi-clock"></i></p>
+                        <div class="col m-0">
+                            <div class="row">
+                                <div class="col d-flex align-items-center mb-6">
+                                    <div class="me-4 btn-round">
+                                        <div>
+                                            <svg class="bgSpoty play rounded-circle cursorPointer" id="playAll" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
+                                                <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
+                                            </svg>
                                         </div>
                                     </div>
+                                    <div class="me-4">
+                                        <i class="bi bi-suit-heart icon-spotify-album"></i>
+                                    </div>
+                                    <div class="me-4">
+                                        <i class="bi bi-arrow-down-circle icon-spotify-album"></i>
+                                    </div>
+                                    <div>
+                                        <p class="fs-3">...</p>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 border border-0 border-bottom border-1 border-secondary mb-3">
+                            <div class="row text-light fs-6 align-items-center">
+                                <div class="col-12">
+                                    <h2 class="text-light fs-2 fw-bold">Popolari</h2>
+                                </div>
+                                <div class="col-6 d-flex p-0">
+                                    <p class="col-1 align-self-center">#</p>
+                                    <p class="col align-self-center">TITOLO</p>
+                                </div>
+                                <div class="col-5 p-0">
+                                    <p class="text-end text-center">RIPRODUZIONE</p>
+                                </div>
+                                <div class="col-1 p-0">
+                                    <p class="mb-0 text-end me-3"><i class="bi bi-clock"></i></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>`
 
+                    let currentSongIndex = 0;
+
+                    function playAllSongs() {
+                        if (albumDataArray.length === 0) return; 
+                    
+                        currentSongIndex = 0;
+                        playSong(albumDataArray[currentSongIndex]); 
+                    }
+                    
+                
+                    function playSong(song) {
+                        audio.src = song.preview; 
+                        audio.play(); 
+                        sectionControl.classList.remove('d-none');
+                        barControlAlbum(song); 
+                        barControl(song)
+                    }
+                    
+                    
+                    const playAllButton = document.getElementById('playAll');
+                    playAllButton.addEventListener('click', playAllSongs);
 
             const destra = document.getElementById('destra')
             dropdown.addEventListener('click', function () {
@@ -165,26 +183,27 @@ function fetchArtistDetails(artistId) {
                     const albumData = JSON.stringify(artist.data[index])
 
                     albumDataArray.push(JSON.parse(albumData))
-                    console.log(albumDataArray)
 
                     const trackDurationMinutes = Math.floor(element.duration / 60);
                     const trackDurationSeconds = element.duration % 60;
                     containerArtist.innerHTML += `
                                             <div class="col-6 d-flex p-0 align-items-center mb-3">
-                                                <div class="col-1 align-self-center fs-4">
-                                                    <p>${index + 1}</p>
-                                                </div>
-                                                <div class="p-0 cursorPointer btnPlay" data-preview="${element.preview}" data-artist='${albumData.replace(/'/g, "&apos;")}'>
-                                                    <h4 class="mb-1 fs-6">${element.title}</h4>
-                                                    <p class="fs-small text-secondary mb-0">${element.artist.name}</p>
-                                                </div>
+                                            <div class="col-1 align-self-center fs-4">
+                                                <span>${index + 1}</span>
                                             </div>
-                                            <div class="col-5">
-                                                <p class="text-end mb-0 text-secondary text-center">${element.rank}</p>
+                                            <div class="p-0 cursorPointer btnPlay" data-preview="${element.preview}" data-artist='${albumData.replace(/'/g, "&apos;")}'>
+                                                <h4 class="mb-1 fs-6">${element.title}</h4>
+                                                <p class="fs-small text-secondary mb-0">${element.artist.name}</p>
                                             </div>
-                                            <div class="col-1">
-                                                <p class="text-end text-secondary">${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}</p>
-                                            </div>`;
+                                        </div>
+                                        <div class="col-5">
+                                            <p class="text-end mb-0 text-secondary text-center">${element.rank}</p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p class="text-end text-secondary">
+                                                ${trackDurationMinutes}:${trackDurationSeconds < 10 ? '0' : ''}${trackDurationSeconds}
+                                            </p>
+                                        </div>`;
 
                 }
 
@@ -232,23 +251,14 @@ function fetchArtistDetails(artistId) {
 
 fetchArtistDetails(addressBarParameters);
 
+
+
+
+
+
 const sectionPlayer = document.getElementById('sectionPlayer');
 const sectionAlbum = document.getElementById('sectionAlbum');
 const sectionVolume = document.getElementById('sectionVolume');
-
-
-function play(song) {
-    const btnPlay = document.querySelectorAll('.btnPlay');
-    btnPlay.forEach(element => {
-        element.addEventListener('click', function (e) {
-            e.preventDefault();
-            audio.src = element.getAttribute('data-preview')
-            audio.play()
-            barControl(song);
-            sectionControl.classList.remove('d-none');
-        });
-    });
-}
 
 
 function barControlAlbum(song) {
@@ -543,7 +553,6 @@ function fetchAlbum(artist) {
         .then((album) => {
             const array = album.data
             array.forEach(element => {
-                console.log(element);
                 const albumSection = document.getElementById('albumSection');
 
                 albumSection.innerHTML += `<div class="col p-0">
@@ -561,12 +570,12 @@ function fetchAlbum(artist) {
             })
 
             const click = document.querySelectorAll('.click')
-                click.forEach(element => {
-                    element.addEventListener('click', function() {
-                        const albumId = element.id;
-                        location.assign(`./album.html?albumId=${albumId}`)
-                    })  
+            click.forEach(element => {
+                element.addEventListener('click', function () {
+                    const albumId = element.id;
+                    location.assign(`./album.html?albumId=${albumId}`)
                 })
+            })
         })
         .catch((error) => {
             console.log('errore', error);

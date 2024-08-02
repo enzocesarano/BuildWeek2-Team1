@@ -5,6 +5,8 @@ const center = document.getElementById('center');
 const albumSection = document.getElementById('albumSection');
 const artistContainer = document.getElementById('artistContainer');
 
+const addressSearchParameters = new URLSearchParams(location.search).get('search');
+
 dropdown.addEventListener('click', function () {
     destra.classList.toggle('d-lg-none');
 });
@@ -12,10 +14,9 @@ dropdown.addEventListener('click', function () {
 function performSearch() {
     const searchName = document.getElementById('album-search').value.trim();
     if (searchName) {
+        location.assign(`./search.html?search=${searchName}`);
         albumSection.innerHTML = '';
         artistContainer.innerHTML = '';
-        search(searchName); // Effettua la ricerca
-        document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
     }
 }
 
@@ -59,8 +60,9 @@ document.getElementById('album-search').addEventListener('keydown', function (ev
 });
 
 window.onload = function () {
-    loadSearchHistory();
-    loadSearchResults(); // Carica i risultati salvati, se presenti
+    if (addressSearchParameters) {
+        search(addressSearchParameters);
+    }
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -100,9 +102,7 @@ function search(name) {
             return response.json();
         })
         .then(data => {
-            // Salva i risultati in session storage
             sessionStorage.setItem('searchResults', JSON.stringify(data));
-
             displayResults(data);
         })
         .catch(error => console.error('Error:', error));

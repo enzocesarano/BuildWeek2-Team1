@@ -623,7 +623,7 @@ fetchAlbum(addressBarParameters);
 function performSearch() {
     const albumName = document.getElementById('album-search').value.trim();
     if (albumName) {
-        location.assign(`./album.html?search=${albumName}`); // Effettua la ricerca
+        location.assign(`./search.html?search=${albumName}`); // Effettua la ricerca
         document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
     }
 }

@@ -147,10 +147,27 @@ function barControlAlbum(song) {
                             <p class="fs-supersmall m-0 text-truncate">${song.artist.name}</p>
                         </div>
                         <div class="col d-none d-md-block">
-                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                            <i id="clickHeart" class="bi bi-suit-heart fs-small cursorPointer fs-5"></i>
                         </div>
                     </div> 
                 </div>`;
+
+                function clickHeart() {
+                    const clickHeart = document.getElementById('clickHeart')
+                    clickHeart.addEventListener('click', function () {
+                        if (clickHeart.classList.contains('bi-suit-heart')) {
+                            clickHeart.classList.remove('bi-suit-heart')
+                            clickHeart.classList.add('bi-suit-heart-fill')
+                            clickHeart.classList.add('textGreen')
+                        } else {
+                            clickHeart.classList.remove('bi-suit-heart-fill')
+                            clickHeart.classList.add('bi-suit-heart')
+                            clickHeart.classList.remove('textGreen')
+                        }
+                    })
+                }
+
+                clickHeart()
 }
 
 function barControl(song) {
@@ -467,10 +484,27 @@ function fetchAlbum() {
                                             <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
                                         </div>
                                         <div class="col d-none d-md-block">
-                                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                                            <i id="clickHeart" class="bi bi-suit-heart fs-small cursorPointer fs-5"></i>
                                         </div>
                                     </div> 
                                 </div>`
+
+                                function clickHeart() {
+                                    const clickHeart = document.getElementById('clickHeart')
+                                    clickHeart.addEventListener('click', function () {
+                                        if (clickHeart.classList.contains('bi-suit-heart')) {
+                                            clickHeart.classList.remove('bi-suit-heart')
+                                            clickHeart.classList.add('bi-suit-heart-fill')
+                                            clickHeart.classList.add('textGreen')
+                                        } else {
+                                            clickHeart.classList.remove('bi-suit-heart-fill')
+                                            clickHeart.classList.add('bi-suit-heart')
+                                            clickHeart.classList.remove('textGreen')
+                                        }
+                                    })
+                                }
+                
+                                clickHeart()
                 }
             })
             .catch((error) => {
@@ -561,7 +595,7 @@ fetchArtistDetails();
 function performSearch() {
     const albumName = document.getElementById('album-search').value.trim();
     if (albumName) {
-        location.assign(`./album.html?search=${albumName}`); // Effettua la ricerca
+        location.assign(`./search.html?search=${albumName}`); // Effettua la ricerca
         document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
     }
 }

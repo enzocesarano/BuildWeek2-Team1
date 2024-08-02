@@ -498,5 +498,28 @@ main {
     box-sizing: border-box; /* Assicura che padding e bordo siano inclusi nella larghezza */
 }
 
+input[type=range]::-moz-range-progress {
+    background: #1ED760 !important;
+    height: 100%;
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #1ED760 !important;
+    cursor: pointer;
+  }
+  
+  
+  input[type=range]::-ms-fill-lower {
+    background: #1ED760 !important;
+  
+  }
+  
+  input[type=range]::-ms-fill-upper {
+    background: white;
+  
+  }
+
 
 @import "scss/bootstrap.scss";

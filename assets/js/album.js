@@ -1,24 +1,21 @@
-document.getElementById('search-button').addEventListener('click', function() {
-    performSearch();
-});
-
-document.getElementById('album-search').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        performSearch();
-    }
-});
-
+// Funzione per eseguire la ricerca
 function performSearch() {
-    const albumName = document.getElementById('album-search').value;
+    const albumName = document.getElementById('album-search').value.trim();
     if (albumName) {
-        searchAlbum(albumName);
-        document.getElementById('album-search').value = '';
+        searchAlbum(albumName); // Effettua la ricerca
+        document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
     }
 }
 
+// Funzione per cercare l'album usando l'API
 function searchAlbum(name) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${name}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log(data);
             if (data.data && data.data.length > 0) {
@@ -31,9 +28,15 @@ function searchAlbum(name) {
         .catch(error => console.error('Error:', error));
 }
 
+// Funzione per ottenere i dettagli dell'album
 function fetchAlbumDetails(albumId) {
     fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${albumId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(album => {
             console.log(album);
             displayAlbumDetails(album);
@@ -45,6 +48,7 @@ function fetchAlbumDetails(albumId) {
 const addressBarParameters = new URLSearchParams(location.search).get('albumId')
 console.log(addressBarParameters)
 
+// Funzione per visualizzare i dettagli dell'album
 function displayAlbumDetails(album) {
     const centerColumn = document.getElementById('center');
     const albumHtml = `
@@ -96,23 +100,19 @@ function displayAlbumDetails(album) {
                     </div>
                 </div>
             </div>
-
-            <!--parte centrale- canzoni -->
             <div class="container-fluid bgCenterAlbum pt-4 px-4 m-0">
                 <div class="row">
                     <div class="col d-flex align-items-center">
                         <div class="me-4 btn-round">
-                            <div>
-                               <svg class="bgSpoty rounded-circle" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#1ED760"/>
-                                 <path d="M15.4137 13.059L10.6935 15.8458C9.93371 16.2944 9 15.7105 9 14.7868V9.21316C9 8.28947 9.93371 7.70561 10.6935 8.15419L15.4137 10.941C16.1954 11.4026 16.1954 12.5974 15.4137 13.059Z" fill="black"/>
-                                  </svg>
-                            </div>
+                            <button type="button" class="btn bgSpoty w-100 h-100 rounded-circle me-2">
+                                <i class="bi bi-play-fill fs-2 text-center mt-1"></i>
+                            </button>
                         </div>
                         <div class="me-4">
                             <i class="bi bi-suit-heart icon-spotify-album"></i>
                         </div>
                         <div class="me-4">
+            <!-- Album actions -->
                             <i class="bi bi-arrow-down-circle icon-spotify-album"></i>
                         </div>
                         <div>
@@ -120,7 +120,6 @@ function displayAlbumDetails(album) {
                         </div>
                     </div>
                 </div>
-
                 <div class="row px-4 pb-2 text-light my-4 fs-6 border-bottom border-light-subtle opacity-50 align-items-center">
                     <div class="col-6 d-flex">
                         <div class="col-1 px-0 me-2 mb-0 align-self-center">#</div>
@@ -133,7 +132,7 @@ function displayAlbumDetails(album) {
                         <p class="mb-0 text-end"><i class="bi bi-clock"></i></p>
                     </div>
                 </div>
-
+                <!-- Track listing -->
                 ${album.tracks && album.tracks.data.map((track, index) => {
                     const trackDurationMinutes = Math.floor(track.duration / 60);
                     const trackDurationSeconds = track.duration % 60;
@@ -180,3 +179,85 @@ fetchAlbumDetails(addressBarParameters)
 
 
 
+// Funzione per caricare le ricerche salvate da localStorage e aggiornare la lista
+function loadSearchHistory() {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const searchList = document.getElementById('search-history-list');
+    searchList.innerHTML = ''; // Pulisce la lista esistente
+
+    searchHistory.forEach(query => {
+        const listItem = document.createElement('li');
+        listItem.className = 'mb-2';
+    // Set the innerHTML of the center column to the album HTML
+        listItem.textContent = query;
+        searchList.appendChild(listItem);
+    });
+}
+
+// Funzione per gestire l'invio della ricerca
+function handleSearch() {
+    const searchInput = document.getElementById('album-search');
+    const query = searchInput.value.trim();
+
+    if (query) {
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+        // Aggiungi la nuova ricerca e rimuovi i duplicati
+        if (!searchHistory.includes(query)) {
+            searchHistory.push(query);
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            loadSearchHistory(); 
+        }
+
+        searchAlbum(query);
+
+        searchInput.value = '';
+    }
+}
+
+// Aggiungi un gestore di eventi al pulsante di ricerca
+document.getElementById('search-button').addEventListener('click', handleSearch);
+
+// Aggiungi un gestore di eventi per la pressione del tasto 'Enter'
+document.getElementById('album-search').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        handleSearch();
+    }
+});
+
+// Carica la cronologia delle ricerche all'avvio della pagina
+window.onload = loadSearchHistory;
+
+document.addEventListener("DOMContentLoaded", function() {
+    const searchContainer = document.getElementById('search-container');
+    const albumSearch = document.getElementById('album-search');
+
+    // Funzione per forzare la visibilità dell'input e annullare l'hover
+    function forceVisibilityAndDisableHover() {
+        albumSearch.style.visibility = 'visible';
+        albumSearch.style.opacity = '1';
+        albumSearch.style.display = 'block';
+        albumSearch.style.pointerEvents = 'auto';
+
+        // Annulla l'effetto hover
+        albumSearch.style.backgroundColor = '#242424'; // Mantiene il colore di sfondo fisso
+        albumSearch.style.border = '1px solid white'; // Mantiene i bordi bianchi
+    }
+
+    // Esegui la funzione all'inizializzazione
+    forceVisibilityAndDisableHover();
+
+    // Aggiungi un osservatore di mutazione per rilevare cambiamenti di stile
+    const observer = new MutationObserver(forceVisibilityAndDisableHover);
+    observer.observe(albumSearch, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+
+    // Aggiungi un evento per rilevare quando l'input viene nascosto
+    searchContainer.addEventListener('mouseleave', forceVisibilityAndDisableHover);
+    searchContainer.addEventListener('blur', forceVisibilityAndDisableHover, true);
+
+    // Esegui la funzione periodicamente come fallback
+    setInterval(forceVisibilityAndDisableHover, 1000); // Ogni secondo
+});

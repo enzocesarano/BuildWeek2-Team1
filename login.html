@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Spotify</title>
+    <link rel="icon" href="../assets/img/icon-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/custom-bootstrap/custom-style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+       .login-body {
+            background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(1, 1, 1, 1) 5%, rgba(51, 50, 50, 1) 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        #login-nav p:hover{
+            color: #1db954;
+        }
+
+        .login-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            background: rgb(32, 32, 32);
+            background: linear-gradient(180deg, rgba(32, 32, 32, 1) 0%, rgba(1, 1, 1, 1) 75%, rgba(33, 33, 33, 1) 100%);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .spotify-logo {
+            width: 200px;
+            margin: 0 auto 40px auto;
+            display: block;
+        }
+
+        #spotify {
+            width: 150px;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            border: 1px solid #888;
+            background-color: #202020;
+            color: #fff;
+            transition: border-color 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: #888;
+        }
+
+        .form-control:hover,
+        .form-control:focus {
+            border-color: #fff;
+            background-color: #202020;
+            color: #fff;
+        }
+
+        .login-btn {
+            background-color: #1db954;
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #1ed760;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .login-btn:disabled {
+            background-color: #1db954;
+            opacity: 0.5;
+            color: #000;
+            cursor: not-allowed;
+        }
+
+        .login-alternatives {
+            margin-bottom: 20px;
+        }
+
+        .login-alternatives a {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 30px;
+            background-color: rgb(32, 32, 32);
+            border: 1px solid #888;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            transition: border-color 0.3s, color 0.3s;
+            text-decoration: none;
+        }
+
+        .login-alternatives a:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #888;
+            margin: 20px 0;
+        }
+
+        .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #1d72b8;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .extra-links {
+            margin-top: 20px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .extra-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+        .spotify-logo-footer{
+            width: 80%;
+        }
+        .footer-icon a {
+            border-radius: 50%;
+            background-color:#262525;
+            width: 40px;
+            height: 40px;
+            text-decoration: none;
+            color: white;
+        }
+        .footer-icon i:hover {
+            color: #1db954;
+        }
+        #footer p{
+            color: white;
+        }
+        #footer p:hover{
+            cursor: pointer;
+            color: #1db954;
+        }
+
+    .navbar-toggler{
+            background-color: #1db954;
+        }
+
+        @media (max-width: 576px) {
+    .login-container {
+        width: 100%;
+        max-width: none; 
+        padding: 20px;
+        margin: 0; 
+        border-radius: 0; 
+        box-shadow: none; 
+        height: auto; 
+        background: none; 
+        margin-top: 60px; 
+    }
+
+    .login-container img {
+        width: 150px;
+    }
+
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav {
+        display: block;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 10px 0; 
+    }
+
+    .navbar-nav .nav-link {
+        color: white;
+        font-size: 16px;
+    }
+}
+        
+    </style>
+</head>
+
+<body class="login-body">
+    <nav id="login-nav" class="navbar navbar-expand-lg bg-black">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="spotify">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg"
+                    alt="Spotify Logo" class="spotify-logo-nav w-100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-light"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page" href="#"><p class="m-0"> Home</p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page"
+                            href="https://www.spotify.com/it/premium/"><p class="m-0">Premium</p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page"
+                            href="https://support.spotify.com/it/#_gl=1*p2zaae*_gcl_aw*R0NMLjE3MjI1MDg1MjkuRUFJYUlRb2JDaE1JaV95S3BjelRod01WclItdEJoMHpLamFrRUFBWUFTQUFFZ0wtM3ZEX0J3RQ..*_gcl_dc*R0NMLjE3MjI1MDg1MjkuRUFJYUlRb2JDaE1JaV95S3BjelRod01WclItdEJoMHpLamFrRUFBWUFTQUFFZ0wtM3ZEX0J3RQ..*_gcl_au*MTM1NjY0ODEwOC4xNzIyNTA3NDU0">
+                            <p class="m-0">Assistenza</p></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page"
+                            href="https://www.spotify.com/it/download/windows/"><p class="m-0">Scarica </p></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container my-4 login-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify Logo"
+            class="spotify-logo">
+
+  
+        <div class="login-alternatives">
+            <a href="index.html" class="btn">Accedi con Facebook</a>
+            <a href="index.html" class="btn">Accedi con Apple</a>
+            <a href="index.html" class="btn">Accedi con Google</a>
+        </div>
+
+
+        <div class="divider"></div>
+
+
+        <form id="loginForm">
+            <label for="email" class="form-label">Indirizzo email o nome utente</label>
+            <input type="email" class="form-control" id="email" placeholder="Indirizzo email o nome utente">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+            <button type="submit" class="btn login-btn w-100" id="loginBtn" disabled>Accedi</button>
+        </form>
+
+
+        <div class="divider"></div>
+
+
+        <a href="#" class="d-block text-center mt-3" style="color: #fff;">Hai dimenticato la tua password?</a>
+
+
+        <div class="extra-links">
+            <p>Non hai un account Spotify? <a href="#" class="signup-link">Iscrivi a Spotify</a></p>
+        </div>
+    </div>
+    <footer id="footer" class="bg-black pt-5 pb-3">
+        <div class="container d-flex">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-6 g-lg-4">
+            <div class="col">
+                <a href="https://open.spotify.com/intl-it"> 
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg"
+                    alt="Spotify Logo" class="spotify-logo-footer">
+                </a>
+            </div>
+            <div class="col">
+               <p class="text-secondary fw-bold">AZIENDA</p> 
+               <p>Chi siamo</p>
+               <p>Opportunità di lavoro</p>
+               <p>For the Record</p>
+            </div>
+            <div class="col">
+                <p class="text-secondary fw-bold">COMMUNITY</p>
+                <p>Per artisti</p> 
+                <p>Sviluppatori</p> 
+                <p>Pubblicità</p> 
+                <p>Investitoti</p> 
+                <p>Venditori</p> 
+            </div>
+            <div class="col">
+                <p class="text-secondary fw-bold">LINK UTILI</p>
+                <p>Assistenza</p> 
+                <p>Lettore Web</p> 
+                <p>App per cellulare gratuita</p> 
+                <p>Diritti del consumatore</p> 
+            </div>
+            <div class="col">
+                <p class="text-secondary fw-bold">PIANI SPOTIFY</p>
+                <p>Premium Individual</p> 
+                <p>Premium Duo</p> 
+                <p>Premium Family</p> 
+                <p>Premium Student</p> 
+                <p>Spotify Free</p> 
+            </div>
+            <div class="col footer-icon d-flex align-items-start">
+               <div class=" d-flex align-items-center justify-content-center me-3">
+                <a href="https://www.instagram.com/spotify/" class="d-flex justify-content-center" >
+                    <i class="bi bi-instagram d-flex align-items-center"></i>
+                </a>
+               </div>
+               <div class=" d-flex align-items-center justify-content-center me-3">
+                <a href="https://x.com/spotify" class="d-flex justify-content-center" >
+                    <i class="bi bi-twitter d-flex align-items-center"></i>
+                </a>
+               </div>
+               <div class=" d-flex align-items-center justify-content-center">
+                <a href="https://www.facebook.com/Spotify" class="d-flex justify-content-center" >
+                    <i class="bi bi-facebook d-flex align-items-center"></i>
+                </a>
+               </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+
+        function validateForm() {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const emailValid = email.includes('@') && email.includes('.');
+            const passwordValid = password.length > 0;
+
+            loginBtn.disabled = !(emailValid && passwordValid);
+        }
+
+        emailInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+    </script>
+</body>
+
+</html>

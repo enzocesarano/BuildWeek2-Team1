@@ -489,4 +489,14 @@ main {
     overflow-x: auto;
 }
 
+#album-search {
+    color: white; /* Colore del testo interno */
+    border: 1px solid white; /* Bordi bianchi */
+    border-radius: 18px; /* Angoli leggermente arrotondati */
+    padding: 5px; /* Spaziatura interna */
+    width: 100%; /* Larghezza del form */
+    box-sizing: border-box; /* Assicura che padding e bordo siano inclusi nella larghezza */
+}
+
+
 @import "scss/bootstrap.scss";

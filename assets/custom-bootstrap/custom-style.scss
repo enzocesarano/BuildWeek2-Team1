@@ -427,10 +427,6 @@ a {
     bottom: 0 !important;
 }
 
-main{
-    overflow-x: hidden;
-}
-
 /*MOBILE*/
 @media (max-width: 576px) {
 
@@ -468,13 +464,8 @@ main{
 
 }
 
-
 @media  (max-width: 767.98px) {
-    .icon-container {
-        display: flex;
-        gap: 25px;
-        /* Spazio tra le icone */
-    }
+
     #sectionControl{
         bottom: 51px !important;
     }
@@ -484,13 +475,19 @@ main{
         border: none !important;
         width: 95% !important;
     }
-   
 }
 
 .cursorPointer {
     cursor: pointer;
 }
 
+.textGreen {
+    color: #1ED760 !important;
+}
+
+main {
+    overflow-x: auto;
+}
 
 #album-search {
     color: white; /* Colore del testo interno */

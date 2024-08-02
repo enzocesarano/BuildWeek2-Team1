@@ -44,6 +44,10 @@ function fetchAlbumDetails(albumId) {
         .catch(error => console.error('Error:', error));
 }
 
+
+const addressBarParameters = new URLSearchParams(location.search).get('albumId')
+console.log(addressBarParameters)
+
 // Funzione per visualizzare i dettagli dell'album
 function displayAlbumDetails(album) {
     const centerColumn = document.getElementById('center');
@@ -151,6 +155,29 @@ function displayAlbumDetails(album) {
     `;
     centerColumn.innerHTML = albumHtml;
 }
+
+
+fetchAlbumDetails(addressBarParameters)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Funzione per caricare le ricerche salvate da localStorage e aggiornare la lista
 function loadSearchHistory() {

@@ -416,7 +416,7 @@ function fetchAlbum() {
                 const albumSection = document.getElementById('albumSection');
                 const albumData = JSON.stringify(album);
 
-                albumSection.innerHTML += `<div class="col p-0 mb-10">
+                albumSection.innerHTML += `<div class="col p-0 mb-5">
                                     <div data-id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2 click1">
                                         <div class="w-100 position-relative">
                                             <img src="${album.cover_big}" class="card-img-top w-100"

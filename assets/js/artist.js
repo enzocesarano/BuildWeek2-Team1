@@ -67,9 +67,9 @@ function fetchArtistDetails(artistId) {
                         <div class="col-12 d-flex justify-content-between mb-3">
                             <div class="d-flex">
                                 <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
-                                    <i class="fa-solid fa-chevron-left fs-5"></i>
+                                      <a href="./index.html"> <i class="fa-solid fa-chevron-left text-light align-items-center fs-5"></i></a>
                                 </div>
-                                <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
+                                <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center d-none">
                                     <i class="fa-solid fa-chevron-right fs-5"></i>
                                 </div>
                             </div>

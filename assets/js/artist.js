@@ -147,27 +147,27 @@ function fetchArtistDetails(artistId) {
                         </div>
                     </div>`
 
-                    let currentSongIndex = 0;
+            let currentSongIndex = 0;
 
-                    function playAllSongs() {
-                        if (albumDataArray.length === 0) return; 
-                    
-                        currentSongIndex = 0;
-                        playSong(albumDataArray[currentSongIndex]); 
-                    }
-                    
-                
-                    function playSong(song) {
-                        audio.src = song.preview; 
-                        audio.play(); 
-                        sectionControl.classList.remove('d-none');
-                        barControlAlbum(song); 
-                        barControl(song)
-                    }
-                    
-                    
-                    const playAllButton = document.getElementById('playAll');
-                    playAllButton.addEventListener('click', playAllSongs);
+            function playAllSongs() {
+                if (albumDataArray.length === 0) return;
+
+                currentSongIndex = 0;
+                playSong(albumDataArray[currentSongIndex]);
+            }
+
+
+            function playSong(song) {
+                audio.src = song.preview;
+                audio.play();
+                sectionControl.classList.remove('d-none');
+                barControlAlbum(song);
+                barControl(song)
+            }
+
+
+            const playAllButton = document.getElementById('playAll');
+            playAllButton.addEventListener('click', playAllSongs);
 
             const destra = document.getElementById('destra')
             dropdown.addEventListener('click', function () {
@@ -235,10 +235,27 @@ function fetchArtistDetails(artistId) {
                                             <p class="fs-supersmall m-0 text-truncate">${data.artist.name}</p>
                                         </div>
                                         <div class="col d-none d-md-block">
-                                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                                            <i id="clickHeart" class="bi bi-suit-heart fs-small fs-5 cursorPointer"></i>
                                         </div>
                                     </div> 
                                 </div>`
+
+                function clickHeart() {
+                    const clickHeart = document.getElementById('clickHeart')
+                    clickHeart.addEventListener('click', function () {
+                        if (clickHeart.classList.contains('bi-suit-heart')) {
+                            clickHeart.classList.remove('bi-suit-heart')
+                            clickHeart.classList.add('bi-suit-heart-fill')
+                            clickHeart.classList.add('textGreen')
+                        } else {
+                            clickHeart.classList.remove('bi-suit-heart-fill')
+                            clickHeart.classList.add('bi-suit-heart')
+                            clickHeart.classList.remove('textGreen')
+                        }
+                    })
+                }
+
+                clickHeart()
             }
 
         })
@@ -255,7 +272,7 @@ fetchArtistDetails(addressBarParameters);
 
 
 
-
+const sectionControl = document.getElementById('sectionControl')
 const sectionPlayer = document.getElementById('sectionPlayer');
 const sectionAlbum = document.getElementById('sectionAlbum');
 const sectionVolume = document.getElementById('sectionVolume');
@@ -273,10 +290,27 @@ function barControlAlbum(song) {
                             <p class="fs-supersmall m-0 text-truncate">${song.artist.name}</p>
                         </div>
                         <div class="col d-none d-md-block">
-                            <i class="bi bi-suit-heart fs-small text-light fs-5"></i>
+                            <i id="clickHeart" class="bi bi-suit-heart fs-small fs-5 cursorPointer"></i>
                         </div>
                     </div> 
                 </div>`;
+
+    function clickHeart() {
+        const clickHeart = document.getElementById('clickHeart')
+        clickHeart.addEventListener('click', function () {
+            if (clickHeart.classList.contains('bi-suit-heart')) {
+                clickHeart.classList.remove('bi-suit-heart')
+                clickHeart.classList.add('bi-suit-heart-fill')
+                clickHeart.classList.add('textGreen')
+            } else {
+                clickHeart.classList.remove('bi-suit-heart-fill')
+                clickHeart.classList.add('bi-suit-heart')
+                clickHeart.classList.remove('textGreen')
+            }
+        })
+    }
+
+    clickHeart()
 }
 
 function barControl(song) {
@@ -583,3 +617,97 @@ function fetchAlbum(artist) {
 }
 
 fetchAlbum(addressBarParameters);
+
+
+
+function performSearch() {
+    const albumName = document.getElementById('album-search').value.trim();
+    if (albumName) {
+        location.assign(`./album.html?search=${albumName}`); // Effettua la ricerca
+        document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
+    }
+}
+
+
+
+// Funzione per caricare le ricerche salvate da localStorage e aggiornare la lista
+function loadSearchHistory() {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const searchList = document.getElementById('search-history-list');
+    searchList.innerHTML = ''; // Pulisce la lista esistente
+
+    searchHistory.forEach(query => {
+        const listItem = document.createElement('li');
+        listItem.className = 'mb-2';
+        // Set the innerHTML of the center column to the album HTML
+        listItem.textContent = query;
+        searchList.appendChild(listItem);
+    });
+}
+
+// Funzione per gestire l'invio della ricerca
+function handleSearch() {
+    const searchInput = document.getElementById('album-search');
+    const query = searchInput.value.trim();
+
+    if (query) {
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+        // Aggiungi la nuova ricerca e rimuovi i duplicati
+        if (!searchHistory.includes(query)) {
+            searchHistory.push(query);
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            loadSearchHistory();
+        }
+
+        performSearch()
+
+        searchInput.value = '';
+    }
+}
+
+document.getElementById('search-button').addEventListener('click', handleSearch);
+
+// Aggiungi un gestore di eventi per la pressione del tasto 'Enter'
+document.getElementById('album-search').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        handleSearch();
+    }
+});
+
+// Carica la cronologia delle ricerche all'avvio della pagina
+window.onload = loadSearchHistory;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchContainer = document.getElementById('search-container');
+    const albumSearch = document.getElementById('album-search');
+
+    // Funzione per forzare la visibilità dell'input e annullare l'hover
+    function forceVisibilityAndDisableHover() {
+        albumSearch.style.visibility = 'visible';
+        albumSearch.style.opacity = '1';
+        albumSearch.style.display = 'block';
+        albumSearch.style.pointerEvents = 'auto';
+
+        // Annulla l'effetto hover
+        albumSearch.style.backgroundColor = '#242424'; // Mantiene il colore di sfondo fisso
+        albumSearch.style.border = '1px solid white'; // Mantiene i bordi bianchi
+    }
+
+    // Esegui la funzione all'inizializzazione
+    forceVisibilityAndDisableHover();
+
+    // Aggiungi un osservatore di mutazione per rilevare cambiamenti di stile
+    const observer = new MutationObserver(forceVisibilityAndDisableHover);
+    observer.observe(albumSearch, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+
+    // Aggiungi un evento per rilevare quando l'input viene nascosto
+    searchContainer.addEventListener('mouseleave', forceVisibilityAndDisableHover);
+    searchContainer.addEventListener('blur', forceVisibilityAndDisableHover, true);
+
+    // Esegui la funzione periodicamente come fallback
+    setInterval(forceVisibilityAndDisableHover, 1000); // Ogni secondo
+});

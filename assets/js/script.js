@@ -115,12 +115,10 @@ function display(art) {
 }
 
 function playNext(song) {
-    // Aggiungi la canzone attuale alla cronologia
     songHistory.push(song);
     currentSongIndex++;
-
-    audio.src = song.preview;
-    audio.play();
+    audio.src = song.preview
+    audio.play()
     barControlAlbum(song);
 }
 
@@ -417,8 +415,8 @@ function fetchAlbum() {
                 const albumSection = document.getElementById('albumSection');
                 const albumData = JSON.stringify(album);
 
-                albumSection.innerHTML += `<div class="col p-0 mb-4">
-                                    <div id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2">
+                albumSection.innerHTML += `<div class="col p-0 mb-10">
+                                    <div data-id=${album.id} class="card p-3 bg-dark border-0 text-secondary hover2 click1">
                                         <div class="w-100 position-relative">
                                             <img src="${album.cover_big}" class="card-img-top w-100"
                                                 alt="${album.title}">
@@ -435,16 +433,23 @@ function fetchAlbum() {
                                         </div>
                                     </div>`
 
+                const click1 = document.querySelectorAll('.click1')
+                click1.forEach(element => {
+                    element.addEventListener('click', function () {
+                        const albumId = element.getAttribute('data-id')
+                        location.assign(`./album.html?albumId=${albumId}`)
+                    })
+                })
 
                 const newPlayAlbum = document.querySelectorAll(`.playAlbum`);
 
                 newPlayAlbum.forEach(element => {
                     const artistData1 = JSON.parse(element.getAttribute('data-artist'));
                     element.addEventListener('click', function () {
-                        audio.src = element.getAttribute('data-preview'); 
+                        audio.src = element.getAttribute('data-preview');
                         audio.play();
                         sectionControl.classList.remove('d-none');
-                        barControl(artistData1); 
+                        barControl(artistData1);
                         barControlAlbum1(artistData1);
                     });
                 });
@@ -478,7 +483,7 @@ fetchAlbum();
 
 
 
-const randomArtistDetails = [48975581, 27, 542, 8706544, 1247, 533];
+const randomArtistDetails = [48975581, 27, 542, 8706544, 564, 64816];
 
 function fetchArtistDetails() {
     randomArtistDetails.forEach(element => {
@@ -493,12 +498,9 @@ function fetchArtistDetails() {
             .then((artist) => {
                 const artistData = artist.data[0];
 
-                console.log(artistData.artist.id); // Ottieni i dati dell'artista
-
-                console.log(artistData)
                 const artistData1 = JSON.stringify(artistData);
                 const artistContainer = document.getElementById('artistContainer');
-                artistContainer.innerHTML += `<div class="col p-0 mb-4 ">
+                artistContainer.innerHTML += `<div class="col p-0 mb-4">
                     <div class="card p-3 bg-dark border-0 text-secondary hover2">
                         <div class="position-relative">
                             <img id="${artistData.artist.id}" src="${artistData.contributors[0].picture_big}" class="card-img-top rounded-circle click"
@@ -537,10 +539,10 @@ function fetchArtistDetails() {
 
                 const click = document.querySelectorAll('.click')
                 click.forEach(element => {
-                    element.addEventListener('click', function() {
+                    element.addEventListener('click', function () {
                         const artistId = element.id;
                         location.assign(`./artist.html?artistId=${artistId}`)
-                    })  
+                    })
                 })
 
 

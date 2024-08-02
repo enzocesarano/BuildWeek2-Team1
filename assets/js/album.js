@@ -41,6 +41,10 @@ function fetchAlbumDetails(albumId) {
         .catch(error => console.error('Error:', error));
 }
 
+
+const addressBarParameters = new URLSearchParams(location.search).get('albumId')
+console.log(addressBarParameters)
+
 function displayAlbumDetails(album) {
     const centerColumn = document.getElementById('center');
     const albumHtml = `
@@ -152,3 +156,27 @@ function displayAlbumDetails(album) {
     `;
     centerColumn.innerHTML = albumHtml;
 }
+
+
+fetchAlbumDetails(addressBarParameters)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

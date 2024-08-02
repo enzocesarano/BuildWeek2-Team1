@@ -290,15 +290,14 @@ a:hover {
 }
 
 /*MOBILE*/
-@media (max-width: 576px) {
+@media (min-width:300px) and (max-width: 991.2px) {
   .bgGray {
     background-color: transparent !important;
     /* Usa !important per forzare la sovrascrittura */
   }
   .icon-container {
     display: flex;
-    gap: 25px;
-    /* Spazio tra le icone */
+    gap: 30px;
   }
   .icon-container i {
     font-size: 1.5em;
@@ -328,6 +327,29 @@ a:hover {
     width: 95% !important;
   }
 }
+
+@media (min-width: 767.9px) and (max-width:991.2px){
+  #sectionControl {
+      bottom: 2.4% !important;
+    }
+    
+    .icon-container {
+      display: flex;
+      gap: 25px;
+      /* Spazio tra le icone */
+    }
+    .icon-container {
+      display: flex;
+      gap: 25px;
+      /* Spazio tra le icone */
+    }
+    .icon-container i {
+      font-size: 1.5em;
+      /* Dimensione delle icone */
+      color: #fff;
+      /* Colore delle icone */
+    }
+  }
 .cursorPointer {
   cursor: pointer;
 }

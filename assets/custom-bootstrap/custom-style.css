@@ -290,7 +290,7 @@ a:hover {
 }
 
 /*MOBILE*/
-@media (min-width:300px) and (max-width: 991.2px) {
+@media (min-width: 300px) and (max-width: 991.2px) {
   .bgGray {
     background-color: transparent !important;
     /* Usa !important per forzare la sovrascrittura */
@@ -327,29 +327,27 @@ a:hover {
     width: 95% !important;
   }
 }
-
-@media (min-width: 767.9px) and (max-width:991.2px){
+@media (min-width: 767.9px) and (max-width: 991.2px) {
   #sectionControl {
-      bottom: 2.4% !important;
-    }
-    
-    .icon-container {
-      display: flex;
-      gap: 25px;
-      /* Spazio tra le icone */
-    }
-    .icon-container {
-      display: flex;
-      gap: 25px;
-      /* Spazio tra le icone */
-    }
-    .icon-container i {
-      font-size: 1.5em;
-      /* Dimensione delle icone */
-      color: #fff;
-      /* Colore delle icone */
-    }
+    bottom: 2.4% !important;
   }
+  .icon-container {
+    display: flex;
+    gap: 25px;
+    /* Spazio tra le icone */
+  }
+  .icon-container {
+    display: flex;
+    gap: 25px;
+    /* Spazio tra le icone */
+  }
+  .icon-container i {
+    font-size: 1.5em;
+    /* Dimensione delle icone */
+    color: #fff;
+    /* Colore delle icone */
+  }
+}
 .cursorPointer {
   cursor: pointer;
 }
@@ -371,7 +369,84 @@ main {
   box-sizing: border-box; /* Assicura che padding e bordo siano inclusi nella larghezza */
 }
 
+input[type=range]::-moz-range-progress {
+  background: #1ED760 !important;
+  height: 100%;
+}
 
+input[type=range]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #1ED760 !important;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #1ED760 !important;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: white;
+}
+
+@media (min-width: 300px) and (max-width: 991.2px) {
+  .bgGray {
+    background-color: transparent !important;
+    /* Usa !important per forzare la sovrascrittura */
+  }
+  .icon-container {
+    display: flex;
+    gap: 30px;
+  }
+  .icon-container i {
+    font-size: 1.5em;
+    /* Dimensione delle icone */
+    color: #fff;
+    /* Colore delle icone */
+  }
+  .goodnight-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+  }
+  #albumSection .col {
+    flex: 0 0 50%;
+    /* Ridimensiona gli album al 50% della larghezza del contenitore */
+    max-width: 50%;
+  }
+}
+@media (max-width: 767.98px) {
+  #sectionControl {
+    bottom: 51px !important;
+  }
+  #containerPlayer {
+    border-radius: 5px !important;
+    border: none !important;
+    width: 95% !important;
+  }
+}
+@media (min-width: 767.9px) and (max-width: 991.2px) {
+  #sectionControl {
+    bottom: 2.4% !important;
+  }
+  .icon-container {
+    display: flex;
+    gap: 25px;
+    /* Spazio tra le icone */
+  }
+  .icon-container {
+    display: flex;
+    gap: 25px;
+    /* Spazio tra le icone */
+  }
+  .icon-container i {
+    font-size: 1.5em;
+    /* Dimensione delle icone */
+    color: #fff;
+    /* Colore delle icone */
+  }
+}
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors

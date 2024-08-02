@@ -14,44 +14,18 @@ const sectionVolume = document.getElementById('sectionVolume');
 
 let currentSongIndex = 0;
 
-const addressSearchParameters = new URLSearchParams(location.search).get('search');
 const addressBarParameters = new URLSearchParams(location.search).get('albumId')
 
 
 function performSearch() {
     const albumName = document.getElementById('album-search').value.trim();
     if (albumName) {
-        searchAlbum(albumName); // Effettua la ricerca
-        document.getElementById('album-search').value = ''; // Pulisce il campo di ricerca
+        location.assign(`./search.html?search=${albumName}`); 
+        document.getElementById('album-search').value = ''; 
     }
 }
 
-// Funzione per cercare l'album usando l'API
-function searchAlbum(name) {
-    fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${name}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-            if (data.data && data.data.length > 0) {
-                const albumId = data.data[0].album.id;
-                fetchAlbumDetails(albumId);
-            } else {
-                console.log('Album not found');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
 
-if (addressSearchParameters) {
-    searchAlbum(addressSearchParameters);
-} else {
-    fetchAlbumDetails(addressBarParameters)
-}
 
 
 // Funzione per ottenere i dettagli dell'album
@@ -551,7 +525,7 @@ function barControl(song) {
     audio.addEventListener('timeupdate', updateProgressBar);
 }
 
-
+fetchAlbumDetails(addressBarParameters)
 
 
 
@@ -621,9 +595,7 @@ function handleSearch() {
             localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
             loadSearchHistory();
         }
-
-        searchAlbum(query);
-
+        performSearch()
         searchInput.value = '';
     }
 }

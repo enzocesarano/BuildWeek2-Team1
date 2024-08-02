@@ -120,7 +120,7 @@ function fetchAlbumDetails(albumId) {
                 <div class="row">
                     <div class="col d-flex align-items-center">
                         <div class="me-4 btn-round">
-                            <button type="button" id="playAll" class="btn bgSpoty w-100 h-100 rounded-circle me-2">
+                            <button type="button" id="playAll" class="btn bgSpoty w-100 h-100 rounded-circle me-2 d-flex align-items-center justify-content-center">
                                 <i class="bi bi-play-fill fs-2 text-center mt-1"></i>
                             </button>
                         </div>

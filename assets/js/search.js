@@ -63,6 +63,7 @@ window.onload = function () {
     if (addressSearchParameters) {
         search(addressSearchParameters);
     }
+    loadSearchHistory()
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -143,6 +144,7 @@ function displayResults(data) {
     artist1.forEach(element => {
         if (!addedAlbum.has(element.album.title)) {
             addedAlbum.add(element.album.title);
+            console.log(element)
             albumSection.innerHTML += `<div class="col p-0">
                 <div id=${element.album.id} class="card p-3 bg-dark border-0 text-secondary hover2 clickAlbum">
                     <div class="w-100 position-relative">
@@ -151,7 +153,7 @@ function displayResults(data) {
                     </div>
                     <div class="card-body p-0 py-2">
                         <p class="card-title text-light fs-small fw-bold mb-1 text-uppercase text-truncate">${element.album.title}</p>
-                        <p class="card-text fs-small">${element.album.release_date}</p>
+                        <p class="card-text fs-small">${element.artist.name}</p>
                     </div>
                 </div>`;
 

@@ -47,9 +47,9 @@ function fetchAlbumDetails(albumId) {
                 <div class="col d-flex justify-content-between mb-3">
                     <div class="d-flex">
                         <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center me-4">
-                            <i class="fa-solid fa-chevron-left fs-5"></i>
+                             <a href="./index.html"> <i class="fa-solid fa-chevron-left text-light align-items-center fs-5"></i></a>
                         </div>
-                        <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center">
+                        <div class="square rounded-circle bg-black text-secondary d-flex justify-content-center align-items-center d-none">
                             <i class="fa-solid fa-chevron-right fs-5"></i>
                         </div>
                     </div>
@@ -90,12 +90,12 @@ function fetchAlbumDetails(albumId) {
                     </div>
                 </div>
             </div>
-            <div class="container-fluid bgCenterAlbum pt-4 px-4 m-0">
+            <div class="container-fluid bgCenterAlbum pt-4 px-4 m-0 py-10">
                 <div class="row">
                     <div class="col d-flex align-items-center">
                         <div class="me-4 btn-round">
-                            <button type="button" id="playAll" class="btn bgSpoty w-100 h-100 rounded-circle me-2">
-                                <i class="bi bi-play-fill fs-2 text-center mt-1"></i>
+                            <button type="button" id="playAll" class="btn bgSpoty w-100 h-100 rounded-circle me-2 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-play-fill fs-2 text-center mt-1 ms-1"></i>
                             </button>
                         </div>
                         <div class="me-4">

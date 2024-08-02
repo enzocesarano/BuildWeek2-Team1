@@ -13,14 +13,14 @@
     <title>Spotify</title>
 </head>
 
-<body>
+<body class="bg-Dark">
 
-    <main>
+    <main class="overflow-x-hidden">
         <div class="container-fluid g-0">
             <div class="row">
 
                 <!-- SINISTRA -->
-                <div class="col-2 bg-black">
+                <div class="col-2 d-none d-lg-block bg-black">
                     <div class="row flex-column px-4">
                         <div class="col mb-4">
                             <ul class="list-unstyled">
@@ -157,7 +157,7 @@
                 <!-- Album Section -->
 
                 <!-- DESTRA -->
-                <div id="destra" class="col-2 bg-black text-light">
+                <div id="destra" class="col-2 bg-black text-light d-none d-lg-block">
                     <div class="row my-4">
                         <div class="col d-flex justify-content-between align-items-center">
                             <div>
@@ -232,7 +232,19 @@
             </div>
         </div>
     </section>
-
+    <nav class="navbar-mobile d-sm-block d-lg-none">
+        <ul class="nav justify-content-around w-100">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="./index.html"><i class="fa-solid fa-home"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-search"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-book"></i></a>
+            </li>
+        </ul>
+    </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

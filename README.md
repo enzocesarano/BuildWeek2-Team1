@@ -34,7 +34,7 @@ Il clone di Spotify è composto da 4 pagine:
 
 1. **Login_Page** - La pagina che consente agli utenti di inserire le proprie credenziali, come email e password, per accedere.
 2. **Home_Page** - Pagina principale dopo l'accesso, dove trovi canzoni suggerite in modo casuale all'utente, e puoi navigare verso la sezione artisti (cliccando l'immagine dell'artista) e album (cliccando l'immagine dell'album).
-3. **Album_Page** - Visualizza i dettagli di un album, inclusa l'immagine di copertura, il nome dell'artista e l'elenco delle canzoni di quell'album.
+3. **Album_Page** - Visualizza i dettagli di un album, inclusa l'immagine di copertina, il nome dell'artista e l'elenco delle canzoni di quell'album.
 4. **Artist_Page** - Fornisce informazioni su un artista specifico, inclusi tutti i suoi album e i brani più venduti.
 
 ### **Caratteristiche**
